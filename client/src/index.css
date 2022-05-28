@@ -1,0 +1,18 @@
+body {
+  background-color: #faf9f6;
+  font-family: arial;
+  max-width: 2000px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.icons {
+  min-width: fit-content;
+  height: auto;
+  color: blue;
+  cursor: pointer;
+  transform: scale(1);
+}
+.icons:hover {
+  transform: scale(1.1);
+}
