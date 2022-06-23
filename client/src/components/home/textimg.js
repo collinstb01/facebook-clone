@@ -21,11 +21,11 @@ width: 200%;
 display: flex;
 justify-content: flex-start;
 align-items: center;
-font-size: 8px;
+font-size: 7px;
 
 margin-left: 20px;
 .icons {
-    width: 22px;
+    width: 17px;
     object-fit: contain;
     height: auto;
     color: blue;

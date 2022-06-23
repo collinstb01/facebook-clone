@@ -22,7 +22,7 @@ const Imagesections = () => {
 export default Imagesections
 
 const ImageSectionn = styled.div`
-height: 30vh;
+height: auto;
 width: 100%;
 
 display: flex;

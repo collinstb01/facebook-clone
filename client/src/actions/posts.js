@@ -4,6 +4,7 @@ import * as api from '../api/index.js';
 export const getposts = () => async (dispatch) => {
     try {
         const { data } = await api.getposts()
+        console.log(data)
 
         dispatch({ type: "getposts", payload: { data } })
     } catch (error) {
@@ -15,8 +16,6 @@ export const createpost = (post) => async (dispatch) => {
         const { data } = await api.createpost(post)
 
         dispatch({ type: "createpost", payload: data })
-
-        console.log({ data })
 
     } catch (error) {
         console.log(error)

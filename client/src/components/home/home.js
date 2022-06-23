@@ -40,7 +40,7 @@ const home = () => {
                 <Grid1>
                     <div>
                         <img />
-                        <h3>{user?.result?.name}</h3>
+                        <h4>Welcome back {user?.result?.name}</h4>
                     </div>
                     < TextImg Icon={FaUserFriends} text='Friends' />
                     < TextImg Icon={MdGroups} text='Groups' />
@@ -75,10 +75,9 @@ width: 100%;
 
 `
 const HomeeGrid = styled.div`
-height: 100vh;
+height: auto;
 width: 100%;
 display: flex;
-flex-direction: row;
 position: sticky;
 top: 0;
 
@@ -91,10 +90,7 @@ flex-direction: column;
 justify-content: left;
 position: sticky;
 top: 0;
-a{
-    padding-left:30px;
 
-}
 @media (max-width: 600px) {
   flex: 0.1;
 }@media (max-width: 430px) {
@@ -110,7 +106,7 @@ align-items: center;
 flex: 0.5;
 background-color: #faf9f6;
 
- margin-top: 5vh;
+ margin-top: 15px;
 
  @media (max-width: 900px) {
    flex: 0.75; 
@@ -124,10 +120,8 @@ background-color: #faf9f6;
 const Grid3 = styled.div`
 display: flex;
 flex: 0.25;
-
 justify-content: flex-end;
-margin-top: 5vh;
-
+margin-top: 15px;
 font-size: 10px;
 
 @media (max-width: 900px) {

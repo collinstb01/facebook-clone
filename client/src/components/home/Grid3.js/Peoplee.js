@@ -14,18 +14,19 @@ export default Peoplee
 
 const Peopleee = styled.div`
 display: flex;
-flex-direction: row;
 justify-content: flex-start;
-height: 10vh;
+align-items: center;
+height:auto;
+padding-block: 10px;
 margin-left: 50%;
 
 img {
-    width: fit-content;
-    height: 5vh;
+    width: 30px;
+    height: 30px;
     border-radius: 300px;
     margin-right: 5%;
 }
 h1 {
-    font-size: 15px;
+    font-size: 12px;
 }
 `

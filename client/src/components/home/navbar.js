@@ -1,183 +1,175 @@
-import react, { useState } from 'react'
-import styled from "styled-components"
-import { FaFacebook } from 'react-icons/fa'
-import { AiOutlineSearch } from 'react-icons/ai'
-import { AiFillHome } from 'react-icons/ai'
-import { BsFlag } from 'react-icons/bs'
-import { AiOutlinePlayCircle } from 'react-icons/ai'
-import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { IoIosPeople } from 'react-icons/io'
-import { GiDiceSixFacesFour } from 'react-icons/gi'
-import { AiFillMessage } from 'react-icons/ai'
-import { BsFillBellFill } from 'react-icons/bs'
-import { FaVideo } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import react, { useState } from "react";
+import styled from "styled-components";
+import { FaFacebook } from "react-icons/fa";
+import { AiOutlineSearch } from "react-icons/ai";
+import { AiFillHome } from "react-icons/ai";
+import { BsFlag } from "react-icons/bs";
+import { AiOutlinePlayCircle } from "react-icons/ai";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { IoIosPeople } from "react-icons/io";
+import { GiDiceSixFacesFour } from "react-icons/gi";
+import { AiFillMessage } from "react-icons/ai";
+import { BsFillBellFill } from "react-icons/bs";
+import { FaVideo } from "react-icons/fa";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getUserpost } from "../../actions/posts";
 const Navbar = () => {
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")))
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
-    return (
-        <Navbarr>
-            <NavbarGrid>
-                <Grid1>
-                    <div className="Grid1Ctn">
-                        <div className="Grid1Icon">
-                            <FaFacebook className="icons" />
-                        </div>
-                        <div className='searchbar'>
-                            <AiOutlineSearch className="icons" />
-                            <input className='searchtext' placeholder="search facebook" />
-                        </div>
-                    </div>
-                </Grid1>
-                <Grid2>
-                    <div className="Grid2ctn">
-                        < AiFillHome className='icons' />
-                        < BsFlag className='icons icon' />
-                        < AiOutlinePlayCircle className='icons icon' />
-                        < AiOutlineShoppingCart className='icons icon' />
-                        < IoIosPeople className='icons icon' />
-                    </div>
-                </Grid2>
-                <Grid3>
-                    <img />
-                    <Link to='/userProfile' >
-                        <h1>{user?.result?.name}</h1>
-                    </Link>
-                    < GiDiceSixFacesFour className="icons" />
-                    < AiFillMessage className="icons" />
-                    < BsFillBellFill className="icons" />
-                    < FaVideo className="icons" />
-                </Grid3>
-            </NavbarGrid>
-        </Navbarr>
-    )
-}
+  const navigate = useNavigate();
+  const id = user?.result?._id;
+  const dispatch = useDispatch();
+  const handle = () => {
+    dispatch(getUserpost(id));
 
-export default Navbar
+    navigate(`/userProfile/${id}`);
+  };
+  console.log(user);
+  return (
+    <Navbarr>
+      <NavbarGrid>
+        <Grid1>
+          <div className="Grid1Ctn">
+            <div className="Grid1Icon">
+              <FaFacebook className="icons" />
+            </div>
+            <div className="searchbar">
+              <AiOutlineSearch className="icons" />
+              <input className="searchtext" placeholder="search facebook" />
+            </div>
+          </div>
+        </Grid1>
+        <Grid2>
+          <div className="Grid2ctn">
+            <AiFillHome className="icons" />
+            <BsFlag className="icons icon" />
+            <AiOutlinePlayCircle className="icons icon" />
+            <AiOutlineShoppingCart className="icons icon" />
+            <IoIosPeople className="icons icon" />
+          </div>
+        </Grid2>
+        <Grid3>
+          <img />
+          <h1 onClick={handle}>{user?.result?.name}</h1>
+          <GiDiceSixFacesFour className="icons" />
+          <AiFillMessage className="icons" />
+          <BsFillBellFill className="icons" />
+          <FaVideo className="icons" />
+        </Grid3>
+      </NavbarGrid>
+    </Navbarr>
+  );
+};
+
+export default Navbar;
 
 const Navbarr = styled.div`
-background-color: white;
-box-shadow: 5px 5px  5px   rgba(41, 28, 28, 0.473);
-width: 100%;
-height: 10vh;
-
-`
+  background-color: white;
+  box-shadow: -2px 2px 2px rgb(41 28 28 / 47%);
+  height: auto;
+  position: sticky;
+  top: 0;
+  z-index: 99999;
+  padding: 10px 0px;
+  @media (max-width: 600px) {
+    padding: 20px 0px;
+  }
+`;
 
 const NavbarGrid = styled.div`
-width: 100%;
-height: 10vh;
+  width: 100%;
+  height: auto;
 
-display: flex;
-flex: 1;
-flex-direction: row;
-justify-content: center;
-align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  place-content: center;
 
-.icons {
-    width: 10%;
-    height: auto;
-    color: blue;
-    cursor: pointer;
-    transform: scale(1);
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr 4fr 4fr;
+  }
 
-}
-.icons:hover {
+  .icons:hover {
     transform: scale(1.1);
-}
-
-`
+  }
+`;
 
 const Grid1 = styled.div`
-width: 25%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
 
-display: flex;
-flex-direction: row;
-justify-content: left;
-align-items: center;
-
-.Grid1Ctn {
-    width: 100%;
+  .Grid1Ctn {
     display: flex;
-justify-content: flex-start;
-align-items: center;
-}
-.Grid1Icon {
-    width: 14%;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .Grid1Icon {
+    width: 25px;
 
     @media (max-width: 700px) {
-    width: 17%;
+      width: 20px;
     }
-}
-.searchbar {
-    width: 80%;
-    height: 3vh;
-    margin-left: 0px;
+  }
+  .searchbar {
+    padding: 10px 20px;
     background-color: #faf9f6;
     border-radius: 10px;
-    padding: 6px;
 
     display: flex;
-}
-.searchtext {
+  }
+  .searchtext {
     outline: none;
     border: none;
     background-color: transparent;
-}
- .icons {
-     margin: 0px 10px;
-     width: 100%;
- }
-@media (max-width: 700px) {
+  }
+  .icons {
+    width: 100%;
+  }
+  @media (max-width: 700px) {
     .searchbar {
-        display: none;
+      display: none;
     }
-}
-`
+  }
+`;
 
 const Grid2 = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-width: 50%;
-height: 10vh;
-.Grid2ctn {
+  .Grid2ctn {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-
-}
-.icons {
-    width: 24px;
-}
-.icon {
-  color: rgb(92, 92, 117);
-}
-`
+  }
+  .icons {
+    width: 15px;
+  }
+  .icon {
+    color: rgb(92, 92, 117);
+  }
+`;
 
 const Grid3 = styled.div`
-display: flex;
-width: 25%;
+  display: flex;
 
-justify-content: center;
-align-items: center;
+  justify-content: center;
+  align-items: center;
 
-font-size: 10px;
+  font-size: 8px;
 
-.icons {
+  .icons {
     border-radius: 50%;
     background-color: #faf9f6;
     color: rgb(92, 92, 117);
-    width: 7%;
-    margin: 0px 10px;
-    padding: 10px;
-    
-}
+  }
 
-@media (max-width: 1030px) {
- .icons {
-    display: none;
- }   
-}
-`
+  @media (max-width: 1030px) {
+    .icons {
+      display: none;
+    }
+  }
+`;

@@ -7,7 +7,7 @@ export default (state = { posts: [], userposts: [] }, action) => {
         case "createpost":
             return { ...state, posts: [...state.posts, action.payload] };
         case "getUserpost":
-            return { ...state, userposts: action.payload.data }
+            return { ...state, userposts: action.payload }
         default:
             return state;
     }

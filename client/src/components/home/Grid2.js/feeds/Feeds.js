@@ -9,8 +9,8 @@ const Feeds = () => {
     console.log(posts)
     return (
         <FeedContainer>
-            {posts.map((feeds) => (
-                < Feed key={feeds._id} feeds={feeds} />
+            {posts?.postMessages?.map((feeds) => (
+                < Feed key={feeds._id} {...feeds} />
             ))}
         </FeedContainer>
     )
@@ -19,6 +19,6 @@ const Feeds = () => {
 export default Feeds
 
 const FeedContainer = styled.div`
-height: fit-content;
+height: auto;
 width: 100%;
 `

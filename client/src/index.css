@@ -1,13 +1,17 @@
-body {
-  background-color: #faf9f6;
-  font-family: arial;
-  max-width: 2000px;
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  background-color: #faf9f6;
+  font-family: arial;
+  max-width: 1500px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: 100;
+
+}
 .icons {
-  min-width: fit-content;
   height: auto;
   color: blue;
   cursor: pointer;
