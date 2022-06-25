@@ -32,7 +32,10 @@ const Navbar = () => {
         <Grid1>
           <div className="Grid1Ctn">
             <div className="Grid1Icon">
-              <FaFacebook className="icons" />
+              <Link to="/">
+                {" "}
+                <FaFacebook className="icons" />
+              </Link>{" "}
             </div>
             <div className="searchbar">
               <AiOutlineSearch className="icons" />
@@ -65,6 +68,7 @@ const Navbar = () => {
 export default Navbar;
 
 const Navbarr = styled.div`
+  width: 100%;
   background-color: white;
   box-shadow: -2px 2px 2px rgb(41 28 28 / 47%);
   height: auto;
@@ -75,6 +79,7 @@ const Navbarr = styled.div`
   @media (max-width: 600px) {
     padding: 20px 0px;
   }
+  h1 {}
 `;
 
 const NavbarGrid = styled.div`
@@ -161,6 +166,9 @@ const Grid3 = styled.div`
 
   font-size: 8px;
 
+  h1 {
+    font-size: 13px;
+  }
   .icons {
     border-radius: 50%;
     background-color: #faf9f6;

@@ -1,12 +1,18 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components'
+import { getposts } from '../../../../actions/posts';
 import Feed from './Feed'
 
 const Feeds = () => {
     const { posts } = useSelector((state) => state.posts);
+    const dispatch = useDispatch()
 
-    console.log(posts)
+    useEffect(() => {
+        dispatch(getposts())
+    }, [posts])
+    
+
     return (
         <FeedContainer>
             {posts?.postMessages?.map((feeds) => (

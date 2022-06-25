@@ -80,7 +80,9 @@ width: 100%;
 display: flex;
 position: sticky;
 top: 0;
-
+h4 {
+    font-size: 15px;
+}
 `
 const Grid1 = styled.div`
 flex: 0.25;

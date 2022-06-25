@@ -21,7 +21,10 @@ width: 200%;
 display: flex;
 justify-content: flex-start;
 align-items: center;
-font-size: 7px;
+h1 {
+    font-size: 15px;
+
+}
 
 margin-left: 20px;
 .icons {
@@ -31,7 +34,7 @@ margin-left: 20px;
     color: blue;
     cursor: pointer;
     transform: scale(1);
-    margin-right: 10px;
+    margin-right: 14px;
 
 
 }

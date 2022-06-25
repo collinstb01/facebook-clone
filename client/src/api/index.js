@@ -9,3 +9,7 @@ export const getUserpost = (id) => API.get(`/posts//userProfile/${id}`, id);
 
 export const signin = (formData) => API.post('/user/signin', formData);
 export const signup = (formData) => API.post('/user/signup', formData);
+
+export const createuserinfo = (info) => API.post("/userInfo/createuserinfo", info)
+export const getuserinfo = (id) => API.get(`/userInfo/getuserinfo/${id}`, id)
+export const updateuserinfo = (info) => API.patch(`/userInfo/updateuserinfo`, info)

@@ -30,6 +30,9 @@ const Posttt = styled.div`
     justify-content: center;
     align-items: center;
   }
+  h3 {
+    font-size: 13px;
+  }
   .icons {
     width: 14px;
   }
