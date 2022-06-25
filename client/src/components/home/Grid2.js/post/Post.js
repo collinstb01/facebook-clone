@@ -1,31 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Postt from "./Postt";
 import { FaVideo } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import FileBase from "react-file-base64";
 import { createpost, getposts } from "../../../../actions/posts";
+import { getuserinfo } from "../../../../actions/userinfo";
 
 const Post = () => {
   const [postData, setPostData] = useState({ message: "", selectedFile: "" });
+  const { userinfo,alluserinfo } = useSelector((state) => state.userinfo);
   const [input, setInput] = useState(false);
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
   const id = user?.result?._id;
-
+  console.log(userinfo)
+// console.log(userinfo?.data?.userInfor?.profileImg)
   const showButton = () => {
     setInput((e) => !e);
   };
+  useEffect(() => {
+    dispatch(getuserinfo(id))
+
+  }, [])
 
   const Posts = (e) => {
     e.preventDefault();
 
     setInput(false);
     dispatch(
-      createpost({ ...postData, name: user?.result?.name, creator: id })
+      createpost({ ...postData, name: user?.result?.name, creator: id, profileImgg:  userinfo?.data?.userInfor?.profileImg })
     );
 
     // dispatch(updatepost(currentId, { ...postData, name: user?.result?.name }));

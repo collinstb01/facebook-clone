@@ -12,6 +12,17 @@ export const createuserinfo = (info) => async (dispatch) => {
     }
 }
 
+export const getalluserinfo = () => async (dispatch) => {
+    const { data } = await api.getalluserinfo()
+
+    try {
+        dispatch({ type: "GET_ALL_INFO",payload:  {data} })
+
+        console.log(data)
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const getuserinfo = (id) => async (dispatch) => {
     const { data } = await api.getuserinfo(id)
 

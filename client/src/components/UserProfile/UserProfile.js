@@ -27,7 +27,7 @@ export const UserProfile = () => {
     dispatch(getUserpost(id));
     dispatch(getuserinfo(id))
   }, [id, message]);
-  const text = userposts?.data?.PostbyUser[0]?.name?.charAt(0);
+  const text = userinfo?.data?.userInfor?.name?.charAt(0);
   return (
     <Main>
       <Navbar />
@@ -36,7 +36,7 @@ export const UserProfile = () => {
           <img src={img} />
         </div>
         {
-         userinfo?.data?.userInfor?.profileImg ?  < img className="profile_photo" src={userinfo?.data?.userInfor?.profileImg} /> : <UserDummy text={text} />
+         userinfo?.data?.userInfor?.profileImg ?  < img className="profile_photo" src={userinfo?.data?.userInfor?.profileImg} /> : <div className="profile_photo"><UserDummy className="profile_photo" text={text} /></div>
         }
       </div>
       <h1>{userinfo?.data?.userInfor?.name}</h1>

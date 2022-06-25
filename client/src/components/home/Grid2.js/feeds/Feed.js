@@ -2,33 +2,35 @@ import react, { useEffect } from "react";
 import Img2 from "../../../../images/2.jpg";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import {useDispatch, useSelector } from "react-redux";
-import {AiFillLike} from "react-icons/ai"
-import {AiOutlineComment} from "react-icons/ai"
-import {AiOutlineShareAlt} from "react-icons/ai"
+import { useDispatch, useSelector } from "react-redux";
+import { AiFillLike } from "react-icons/ai";
+import { AiOutlineComment } from "react-icons/ai";
+import { AiOutlineShareAlt } from "react-icons/ai";
 import UserDummy from "../../../UserProfile/UserDummy";
-import { getUserpost } from "../../../../actions/posts";
 
-
-  const Feed = ({ name, message, selectedFile, creator, createdAt }) => {
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+const Feed = ({
+  name,
+  message,
+  selectedFile,
+  creator,
+  createdAt,
+  profileImgg,
+}) => {
   const { userinfo } = useSelector((state) => state.userinfo);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getUserpost(creator))
-  }, [])
+  function handle() {
+    navigate(`/userProfile/${creator}`);
+  }
 
-    function handle() {
-      navigate(`/userProfile/${creator}`);
-    }
+  const text = userinfo?.data?.userInfor?.name?.charAt(0);
   return (
     <FeedContainer>
       <User>
         <UserProfileImg onClick={handle}>
-        {
-         userinfo?.data?.userInfor?.profileImg ?    <UserImage src={userinfo?.data?.userInfor?.profileImg} /> : <UserDummy text={text} />
-        }
+          <UserImage src={profileImgg} />
+          {/* <UserDummy text={text}   /> */}
         </UserProfileImg>
         <UserNameAndTimePosted>
           <h3 onClick={handle}>{name}</h3>
@@ -43,11 +45,11 @@ import { getUserpost } from "../../../../actions/posts";
           <Img src={selectedFile} />
         </UserPostImg>
       )}
-    <div className="reactions">
+      <div className="reactions">
         <AiFillLike className="reaction-icon" />
         <AiOutlineComment className="reaction-icon" />
         <AiOutlineShareAlt className="reaction-icon" />
-    </div>
+      </div>
     </FeedContainer>
   );
 };
@@ -64,7 +66,7 @@ const FeedContainer = styled.div`
   margin-bottom: 20px;
   padding-top: 13px;
 
-  .reactions{
+  .reactions {
     padding-block: 10px;
     background-color: whitesmoke;
     text-align: center;
@@ -76,7 +78,7 @@ const FeedContainer = styled.div`
       width: 25px;
       cursor: pointer;
     }
-}
+  }
 `;
 const User = styled.div`
   display: flex;
@@ -86,7 +88,6 @@ const User = styled.div`
   width: 100%;
   justify-content: flex-start;
   align-items: center;
-  
 `;
 const UserNameAndTimePosted = styled.div`
   display: flex;
@@ -96,9 +97,7 @@ const UserNameAndTimePosted = styled.div`
     margin-left: 5px;
   }
 `;
-const UserProfileImg = styled.div`
-  
-`;
+const UserProfileImg = styled.div``;
 
 const UserImage = styled.img`
   width: 40px;

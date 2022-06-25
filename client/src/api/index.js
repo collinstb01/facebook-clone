@@ -13,3 +13,4 @@ export const signup = (formData) => API.post('/user/signup', formData);
 export const createuserinfo = (info) => API.post("/userInfo/createuserinfo", info)
 export const getuserinfo = (id) => API.get(`/userInfo/getuserinfo/${id}`, id)
 export const updateuserinfo = (info) => API.patch(`/userInfo/updateuserinfo`, info)
+export const getalluserinfo = () => API.get(`/userInfo/getalluserinfo`)
