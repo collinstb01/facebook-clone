@@ -6,7 +6,7 @@ import { getalluserinfo } from "../../../../actions/userinfo";
 import Feed from "./Feed";
 
 const Feeds = () => {
-  const { posts } = useSelector((state) => state.posts);
+  const { posts, message } = useSelector((state) => state.posts);
 
   const dispatch = useDispatch();
   console.log(posts)
@@ -14,7 +14,7 @@ const Feeds = () => {
   useEffect(() => {
     dispatch(getalluserinfo());
     dispatch(getposts());
-  }, [posts]);
+  }, [posts, message]);
 
   return (
     <FeedContainer>

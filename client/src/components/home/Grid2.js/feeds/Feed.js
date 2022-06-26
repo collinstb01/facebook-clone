@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AiFillLike } from "react-icons/ai";
 import { AiOutlineComment } from "react-icons/ai";
 import { AiOutlineShareAlt } from "react-icons/ai";
-import UserDummy from "../../../UserProfile/UserDummy";
+import { likepost } from "../../../../actions/posts";
 
 const Feed = ({
   name,
@@ -15,6 +15,7 @@ const Feed = ({
   creator,
   createdAt,
   profileImgg,
+  _id
 }) => {
   const { userinfo } = useSelector((state) => state.userinfo);
   const navigate = useNavigate();
@@ -23,14 +24,24 @@ const Feed = ({
   function handle() {
     navigate(`/userProfile/${creator}`);
   }
+  const user = JSON.parse(localStorage.getItem("profile"))
+  console.log(_id)
+  const like = () => {
+    dispatch(likepost({id: _id, userId: user?.result?._id}))
+  console.log(_id)
+  console.log( user?.result?._id)
 
-  const text = userinfo?.data?.userInfor?.name?.charAt(0);
+  }
+
+  const text = name?.charAt(0);
   return (
     <FeedContainer>
       <User>
         <UserProfileImg onClick={handle}>
-          <UserImage src={profileImgg} />
-          {/* <UserDummy text={text}   /> */}
+          {profileImgg ? <UserImage src={profileImgg} /> :
+          <div className="dummy">
+     {text}   
+          </div>}
         </UserProfileImg>
         <UserNameAndTimePosted>
           <h3 onClick={handle}>{name}</h3>
@@ -46,7 +57,7 @@ const Feed = ({
         </UserPostImg>
       )}
       <div className="reactions">
-        <AiFillLike className="reaction-icon" />
+        <AiFillLike className="reaction-icon" onClick={like} />
         <AiOutlineComment className="reaction-icon" />
         <AiOutlineShareAlt className="reaction-icon" />
       </div>
@@ -65,7 +76,17 @@ const FeedContainer = styled.div`
   border-radius: 20px;
   margin-bottom: 20px;
   padding-top: 13px;
-
+  .dummy {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0px 10px; 
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
   .reactions {
     padding-block: 10px;
     background-color: whitesmoke;
@@ -78,6 +99,9 @@ const FeedContainer = styled.div`
       width: 25px;
       cursor: pointer;
     }
+  }
+  h3 {
+    font-size: 15px;
   }
 `;
 const User = styled.div`
@@ -97,7 +121,10 @@ const UserNameAndTimePosted = styled.div`
     margin-left: 5px;
   }
 `;
-const UserProfileImg = styled.div``;
+const UserProfileImg = styled.div`
+
+
+`;
 
 const UserImage = styled.img`
   width: 40px;

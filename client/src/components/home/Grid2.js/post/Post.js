@@ -17,7 +17,7 @@ const Post = () => {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
   const id = user?.result?._id;
-  console.log(userinfo)
+  // console.log(userinfo)
 // console.log(userinfo?.data?.userInfor?.profileImg)
   const showButton = () => {
     setInput((e) => !e);
