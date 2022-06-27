@@ -50,11 +50,10 @@ export const likepost = ({id, userId}) => async (dispatch) => {
     }
 }
 
-export const comments = (data) => async (dispatch) => {
+export const commentforpost = ({comment, id, name}) => async (dispatch) => {
 
     try {
-        const { data } = await api.comments(data)
-        console.log(data)
+        const { data } = await api.comments({comment, id, name})
 
         dispatch({ type: "createcomment", payload: { data } })
 

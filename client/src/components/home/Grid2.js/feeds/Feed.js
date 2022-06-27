@@ -1,4 +1,4 @@
-import react, { useEffect } from "react";
+import react, { useEffect, useState } from "react";
 import Img2 from "../../../../images/2.jpg";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AiFillLike } from "react-icons/ai";
 import { AiOutlineComment } from "react-icons/ai";
 import { AiOutlineShareAlt } from "react-icons/ai";
-import { likepost } from "../../../../actions/posts";
+import { likepost, commentforpost } from "../../../../actions/posts";
 
 const Feed = ({
   name,
@@ -15,22 +15,31 @@ const Feed = ({
   creator,
   createdAt,
   profileImgg,
-  _id
+  _id,
+  likes,
+  comments
 }) => {
   const { userinfo } = useSelector((state) => state.userinfo);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [comment, setComment] = useState("")
+  const [show, setShow] = useState(false)
+
+  const commentFunc = () => {
+    dispatch(commentforpost({comment, name , id: _id,}))
+  }
 
   function handle() {
     navigate(`/userProfile/${creator}`);
   }
   const user = JSON.parse(localStorage.getItem("profile"))
-  console.log(_id)
+
   const like = () => {
     dispatch(likepost({id: _id, userId: user?.result?._id}))
-  console.log(_id)
-  console.log( user?.result?._id)
 
+  }
+  const commenthandle = () => {
+    setShow((e) => !e)
   }
 
   const text = name?.charAt(0);
@@ -57,10 +66,21 @@ const Feed = ({
         </UserPostImg>
       )}
       <div className="reactions">
-        <AiFillLike className="reaction-icon" onClick={like} />
-        <AiOutlineComment className="reaction-icon" />
+       <div className="likes">
+         <AiFillLike className="reaction-icon" onClick={like} />{ likes.length} <span>Likes</span>
+       </div>
+       <div className="likes">
+       <AiOutlineComment className="reaction-icon" onClick={commenthandle}  /> {comments.length} <span>Comments</span>
+       </div>
         <AiOutlineShareAlt className="reaction-icon" />
       </div>
+     {show && <div className="comments" >
+      <h5>All Comments</h5>
+        <div className="commentinput">
+        <input onChange={(e) => setComment(e.target.value)} value={comment} placeholder="Post a Comment" /> <span onClick={commentFunc}><button>Comment</button></span>
+        </div>
+        {comments.map((val) => <p>{val}</p>)}
+      </div>}
     </FeedContainer>
   );
 };
@@ -94,7 +114,12 @@ const FeedContainer = styled.div`
     justify-content: space-around;
     display: grid;
     grid-auto-flow: column;
-
+    transition: all .3s ease-in-out;
+    .likes{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
     .reaction-icon {
       width: 25px;
       cursor: pointer;
@@ -102,6 +127,32 @@ const FeedContainer = styled.div`
   }
   h3 {
     font-size: 15px;
+  }
+  .comments {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: baseline;
+    padding: 0px 10px;
+
+    .commentinput {
+      display: flex;
+      width: 100%;
+      input {
+      flex: 0.8;
+      outline: none;
+    }
+    button {
+      border: none;
+      outline: none;
+      padding: 10px;
+      color: white;
+      background-color: blue;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    }
   }
 `;
 const User = styled.div`
@@ -116,6 +167,7 @@ const User = styled.div`
 const UserNameAndTimePosted = styled.div`
   display: flex;
   flex-direction: row;
+  text-align: initial;
 
   h3 {
     margin-left: 5px;

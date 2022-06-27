@@ -40,7 +40,7 @@ const home = () => {
                 <Grid1>
                     <div>
                         <img />
-                        <h4>Welcome back {user?.result?.name}</h4>
+                        <h4 className="welcomeback">Welcome back {user?.result?.name}</h4>
                     </div>
                     < TextImg Icon={FaUserFriends} text='Friends' />
                     < TextImg Icon={MdGroups} text='Groups' />
@@ -69,10 +69,14 @@ const home = () => {
 export default home
 
 const Homee = styled.div`
-height: 100vh;
+height: fit-content;
 width: 100%;
 
-
+.welcomeback {
+    @media (max-width: 700px) {
+        display: none;
+    }
+}
 `
 const HomeeGrid = styled.div`
 height: auto;
