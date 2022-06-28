@@ -15,10 +15,11 @@ import People from './Grid3.js/People'
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { getposts } from '../../actions/posts'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const home = () => {
     const navigate = useNavigate();
+  const { posts, message } = useSelector((state) => state.posts);
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")))
 
     const [currentId, setCurrentId] = useState(0);
@@ -26,8 +27,8 @@ const home = () => {
 
     useEffect(() => {
         dispatch(getposts());
-    }, [dispatch]);
-
+      }, [message]);
+    
     const logOut = () => {
         dispatch({ type: "LOGOUT" })
 
@@ -108,7 +109,7 @@ const Grid2 = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
-
+overflow: auto;
 flex: 0.5;
 background-color: #faf9f6;
 

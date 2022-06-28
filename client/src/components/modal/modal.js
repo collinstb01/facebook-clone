@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { AiFillCamera } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createuserinfo,
@@ -10,6 +11,7 @@ import {
 } from "../../actions/userinfo";
 import { useParams } from "react-router-dom";
 import FileBase from "react-file-base64";
+import { AiFillEdit } from "react-icons/ai";
 
 function Modall() {
   const { userinfo } = useSelector((state) => state.userinfo);
@@ -24,7 +26,8 @@ function Modall() {
     profileImg: "",
     bio: "",
     creator: "",
-    name: userId?.result?.name
+    coverImg: "",
+    name: userId?.result?.name,
   });
   console.log(postInfo.name);
 
@@ -32,8 +35,8 @@ function Modall() {
     setShow(false);
     setPostinfo({ ...postInfo, creator: id });
     dispatch(getuserinfo(id));
-    if ( userinfo?.data?.userInfor) {
-      console.log("updating")
+    if (userinfo?.data?.userInfor) {
+      console.log("updating");
       return dispatch(updateuserinfo(postInfo));
     }
     dispatch(createuserinfo(postInfo));
@@ -46,7 +49,8 @@ function Modall() {
     <>
       {id === userId.result?._id && (
         <Button variant="primary" onClick={handleShow}>
-          Launch demo modal
+          <AiFillEdit />
+          Edit your Profile
         </Button>
       )}
       <Modal show={show} onHide={handleClose} style={style}>
@@ -56,16 +60,54 @@ function Modall() {
         <Modal.Body>
           <div>
             <h4>Chose Your Profile Picture</h4>
-            <FileBase
-              type="file"
-              multiple={false}
-              onDone={({ base64 }) =>
-                setPostinfo({ ...postInfo, profileImg: base64 })
-              }
-            />
+            <label
+              className="inputLabel"
+              style={{
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <AiFillCamera style={{ width: "30px" }} />
+              <span>Select Photo</span>
+              <div style={{ display: "none" }}>
+                <FileBase
+                  type="file"
+                  multiple={false}
+                  onDone={({ base64 }) =>
+                  setPostinfo({ ...setPostinfo, profileImg: base64 })
+                  }
+                />
+                {<p>{postInfo?.profileImg}</p>}
+              </div>
+            </label>
           </div>
           <div>
-            <h4>Enter Your Bio</h4>
+            <h4>Chose Your Cover Picture</h4>
+            <label
+              className="inputLabel"
+              style={{
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <AiFillCamera style={{ width: "30px" }} />
+              <span>Select Photo</span>
+              <div style={{ display: "none" }}>
+                <FileBase
+                  type="file"
+                  multiple={false}
+                  onDone={({ base64 }) =>
+                  setPostinfo({ ...setPostinfo, coverImg: base64 })
+                  }
+                />
+                {<p>{postInfo?.profileImg}</p>}
+              </div>
+            </label>
+          </div>
+          <div>
+            <h4 style={{marginBottom: "5px"}}>Enter Your Bio</h4>
             <input
               placeholder="Please Enter Bio"
               value={postInfo.bio}

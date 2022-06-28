@@ -13,38 +13,63 @@ import UserDummy from "./UserDummy";
 import FileBase from "react-file-base64";
 import Modall from "../modal/modal";
 import { getuserinfo } from "../../actions/userinfo";
+import img4 from "../../images/network.png";
+import img3 from "../../images/dummy.jpg";
 
 export const UserProfile = () => {
   const dispatch = useDispatch();
-  const { userposts } = useSelector((state) => state.posts);
-  const { message, userinfo } = useSelector((state) => state.userinfo);
-  console.log(userinfo)
+  const { userposts, message } = useSelector((state) => state.posts);
+  const { userinfo } = useSelector((state) => state.userinfo);
+
+  console.log(userinfo);
   const user = JSON.parse(localStorage.getItem("profile"));
   const { id } = useParams();
   console.log(userposts?.data?.PostbyUser);
 
   useEffect(() => {
     dispatch(getUserpost(id));
-    dispatch(getuserinfo(id))
+    dispatch(getuserinfo(id));
   }, [id, message]);
   const text = userinfo?.data?.userInfor?.name?.charAt(0);
+
   return (
     <Main>
       <Navbar />
       <div className="images">
         <div className="cover-photo">
-          <img src={img} />
+          {userinfo?.data?.userInfor?.coverImg ? (
+            <img src={userinfo?.data?.userInfor?.coverImg} />
+          ) : (
+            <img src={img3} />
+          )}{" "}
         </div>
-        {
-         userinfo?.data?.userInfor?.profileImg ?  < img className="profile_photo" src={userinfo?.data?.userInfor?.profileImg} /> : <div className="profile_photo"><UserDummy className="profile_photo" text={text} /></div>
-        }
+        {userinfo?.data?.userInfor?.profileImg ? (
+          <img
+            className="profile_photo"
+            src={userinfo?.data?.userInfor?.profileImg}
+          />
+        ) : (
+          <div className="profile_photo">
+            <UserDummy className="profile_photo" text={text} />
+          </div>
+        )}
       </div>
       <h1>{userinfo?.data?.userInfor?.name}</h1>
-      <p>{userinfo?.data?.userInfor?.bio ? userinfo?.data?.userInfor?.bio : "Enter Your Bio"}</p>
-      < Modall />
+      <p>
+        {userinfo?.data?.userInfor?.bio
+          ? userinfo?.data?.userInfor?.bio
+          : "Enter Your Bio"}
+      </p>
+      <Modall />
       <div className="informations">
         <div className="informations-by-user"></div>
         <Post />
+        {!userposts?.data?.PostbyUser?.length && (
+          <div>
+            <h3>No Post To View</h3>
+            <img src={img4} style={{ width: "300px" }} />
+          </div>
+        )}
         {userposts?.data?.PostbyUser?.map((userpost) => (
           <Feed {...userpost} />
         ))}
@@ -65,8 +90,8 @@ const Main = styled.div`
   .informations {
     max-width: 800px;
 
-    @media (max-width: 800px){
-        width: 100%;
+    @media (max-width: 800px) {
+      width: 100%;
     }
   }
   .images {
@@ -83,8 +108,8 @@ const Main = styled.div`
       border-radius: 50%;
 
       @media (max-width: 500px) {
-    left: 35%;
-  }
+        left: 35%;
+      }
     }
     .cover-photo {
       position: relative;

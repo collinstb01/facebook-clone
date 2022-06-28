@@ -1,25 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { getposts } from "../../../../actions/posts";
-import { getalluserinfo } from "../../../../actions/userinfo";
 import Feed from "./Feed";
 
 const Feeds = () => {
   const { posts, message } = useSelector((state) => state.posts);
-
+  const [messagee, setMessage] = useState("")
   const dispatch = useDispatch();
-  console.log(posts)
-
-  useEffect(() => {
-    dispatch(getalluserinfo());
-    dispatch(getposts());
-  }, [posts, message]);
 
   return (
     <FeedContainer>
       {posts?.postMessages?.map((feeds) => (
-        <Feed key={feeds._id} {...feeds} />
+        <Feed key={feeds._id} {...feeds} setMessage={setMessage} />
       ))}
     </FeedContainer>
   );

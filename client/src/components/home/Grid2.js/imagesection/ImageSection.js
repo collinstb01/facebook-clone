@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import img from "../../../../images/dummy.jpg"
 
-const ImageSection = ({ Icon, text }) => {
+const ImageSection = ({ profileImg, name }) => {
   return (
     <ImageSectionn>
-      <img src={Icon} />
-      <h3>{text}</h3>
+   { profileImg ?  <img src={profileImg} /> :  <img src={img} />}
+      <h3>{name?.split(" ")[0]}</h3>
     </ImageSectionn>
   );
 };
@@ -13,7 +14,7 @@ const ImageSection = ({ Icon, text }) => {
 export default ImageSection;
 
 const ImageSectionn = styled.div`
-  height: auto;
+  height: fit-content;
   margin: 0 10px;
   border-radius: 10px;
   display: flex;

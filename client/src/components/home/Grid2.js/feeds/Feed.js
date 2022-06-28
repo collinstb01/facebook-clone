@@ -4,9 +4,10 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillLike } from "react-icons/ai";
+import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineComment } from "react-icons/ai";
 import { AiOutlineShareAlt } from "react-icons/ai";
-import { likepost, commentforpost } from "../../../../actions/posts";
+import { likepost, commentforpost, getposts } from "../../../../actions/posts";
 
 const Feed = ({
   name,
@@ -17,40 +18,41 @@ const Feed = ({
   profileImgg,
   _id,
   likes,
-  comments
+  comments,
+  setMessage,
 }) => {
   const { userinfo } = useSelector((state) => state.userinfo);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [comment, setComment] = useState("")
-  const [show, setShow] = useState(false)
+  const [comment, setComment] = useState("");
+  const [show, setShow] = useState(false);
 
   const commentFunc = () => {
-    dispatch(commentforpost({comment, name , id: _id,}))
-  }
+    dispatch(commentforpost({ comment, name, id: _id, setMessage }));
+  };
 
   function handle() {
     navigate(`/userProfile/${creator}`);
   }
-  const user = JSON.parse(localStorage.getItem("profile"))
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   const like = () => {
-    dispatch(likepost({id: _id, userId: user?.result?._id}))
-
-  }
+    dispatch(likepost({ id: _id, userId: user?.result?._id, setMessage }));
+  };
   const commenthandle = () => {
-    setShow((e) => !e)
-  }
+    setShow((e) => !e);
+  };
 
   const text = name?.charAt(0);
   return (
     <FeedContainer>
       <User>
         <UserProfileImg onClick={handle}>
-          {profileImgg ? <UserImage src={profileImgg} /> :
-          <div className="dummy">
-     {text}   
-          </div>}
+          {profileImgg ? (
+            <UserImage src={profileImgg} />
+          ) : (
+            <div className="dummy">{text}</div>
+          )}
         </UserProfileImg>
         <UserNameAndTimePosted>
           <h3 onClick={handle}>{name}</h3>
@@ -66,21 +68,43 @@ const Feed = ({
         </UserPostImg>
       )}
       <div className="reactions">
-       <div className="likes">
-         <AiFillLike className="reaction-icon" onClick={like} />{ likes.length} <span>Likes</span>
-       </div>
-       <div className="likes">
-       <AiOutlineComment className="reaction-icon" onClick={commenthandle}  /> {comments.length} <span>Comments</span>
-       </div>
+        <div className="likes">
+          {likes?.includes(user?.result?._id) ? (
+            <>
+              <AiFillLike className="reaction-icon" onClick={like} />
+              <span>You and {likes?.length - 1} other</span>
+            </>
+          ) : (
+            <>
+              <AiOutlineLike className="reaction-icon" onClick={like} />
+              <span>{likes?.length} likes</span>
+            </>
+          )}
+        </div>
+        <div className="likes">
+          <AiOutlineComment className="reaction-icon" onClick={commenthandle} />{" "}
+          {comments?.length} <span>Comments</span>
+        </div>
         <AiOutlineShareAlt className="reaction-icon" />
       </div>
-     {show && <div className="comments" >
-      <h5>All Comments</h5>
-        <div className="commentinput">
-        <input onChange={(e) => setComment(e.target.value)} value={comment} placeholder="Post a Comment" /> <span onClick={commentFunc}><button>Comment</button></span>
+      {show && (
+        <div className="comments">
+          <h5>All Comments</h5>
+          <div className="commentinput">
+            <input
+              onChange={(e) => setComment(e.target.value)}
+              value={comment}
+              placeholder="Post a Comment"
+            />{" "}
+            <span onClick={commentFunc}>
+              <button>Comment</button>
+            </span>
+          </div>
+          {comments?.map((val, i) => (
+            <p key={i}>{val}</p>
+          ))}
         </div>
-        {comments.map((val) => <p>{val}</p>)}
-      </div>}
+      )}
     </FeedContainer>
   );
 };
@@ -97,16 +121,16 @@ const FeedContainer = styled.div`
   margin-bottom: 20px;
   padding-top: 13px;
   .dummy {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin: 0px 10px; 
-  background-color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0px 10px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
   .reactions {
     padding-block: 10px;
     background-color: whitesmoke;
@@ -114,8 +138,8 @@ const FeedContainer = styled.div`
     justify-content: space-around;
     display: grid;
     grid-auto-flow: column;
-    transition: all .3s ease-in-out;
-    .likes{
+    transition: all 0.3s ease-in-out;
+    .likes {
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -139,19 +163,19 @@ const FeedContainer = styled.div`
       display: flex;
       width: 100%;
       input {
-      flex: 0.8;
-      outline: none;
-    }
-    button {
-      border: none;
-      outline: none;
-      padding: 10px;
-      color: white;
-      background-color: blue;
-    }
-    button:hover {
-      opacity: 0.9;
-    }
+        flex: 0.8;
+        outline: none;
+      }
+      button {
+        border: none;
+        outline: none;
+        padding: 10px;
+        color: white;
+        background-color: blue;
+      }
+      button:hover {
+        opacity: 0.9;
+      }
     }
   }
 `;
@@ -173,10 +197,7 @@ const UserNameAndTimePosted = styled.div`
     margin-left: 5px;
   }
 `;
-const UserProfileImg = styled.div`
-
-
-`;
+const UserProfileImg = styled.div``;
 
 const UserImage = styled.img`
   width: 40px;

@@ -5,7 +5,7 @@ import { FaVideo } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-
+import {AiFillCamera} from "react-icons/ai"
 import FileBase from "react-file-base64";
 import { createpost, getposts } from "../../../../actions/posts";
 import { getuserinfo } from "../../../../actions/userinfo";
@@ -51,15 +51,19 @@ const Post = () => {
             setPostData({ ...postData, message: e.target.value })
           }
         />
-        <div className="fileInput">
-          <FileBase
+          <label className="inputLabel" style={{cursor: "pointer", display: "flex", alignItems:"center"}}>
+            < AiFillCamera style={{width: "30px"}} />
+            <span>Select Photo</span>
+         <div style={{display: "none"}}>
+         <FileBase 
             type="file"
             multiple={false}
             onDone={({ base64 }) =>
               setPostData({ ...postData, selectedFile: base64 })
             }
           />
-        </div>
+         </div>
+          </label>
         {input && <button onClick={Posts}>Post</button>}
       </NavvCtn1>
       <NavvCtn2>

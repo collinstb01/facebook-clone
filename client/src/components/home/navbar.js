@@ -25,6 +25,12 @@ const Navbar = () => {
 
     navigate(`/userProfile/${id}`);
   };
+  const logout = () => {
+      dispatch({ type: "LOGOUT" })
+
+      navigate("/auth")
+      setUser(null)
+  }
   console.log(user);
   return (
     <Navbarr>
@@ -54,7 +60,8 @@ const Navbar = () => {
         </Grid2>
         <Grid3>
           <img />
-          <h1 onClick={handle}>{user?.result?.name}</h1>
+       <div>   <h1 onClick={handle}>{user?.result?.name}</h1>
+          <h1 className="logout" onClick={logout}>Log Out</h1></div>
           <GiDiceSixFacesFour className="icons" />
           <AiFillMessage className="icons" />
           <BsFillBellFill className="icons" />
@@ -80,6 +87,12 @@ const Navbarr = styled.div`
     padding: 20px 0px;
   }
   h1 {}
+  .logout {
+    display: none;
+    @media (max-width: 500px) {
+      display: initial;
+    }
+  }
 `;
 
 const NavbarGrid = styled.div`
@@ -109,12 +122,12 @@ const Grid1 = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    margin-left: 5px;
   }
   .Grid1Icon {
     width: 25px;
-
     @media (max-width: 700px) {
-      width: 20px;
+      width: 25px;
     }
   }
   .searchbar {

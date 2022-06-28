@@ -60,7 +60,7 @@ const auth = () => {
                     {!isSignup ? 'Sign Up' : 'Sign In'}
                 </Button>
                 <Button onClick={switchMode}>
-                    {isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up"}
+                    {!isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up"}
                 </Button>
             </div>
         </AuthContainer>
@@ -70,7 +70,7 @@ const auth = () => {
 export default auth
 
 const AuthContainer = styled.div`
-width: 100%;
+width: auto;
 height: 100vh;
 
 display: flex;
@@ -78,14 +78,13 @@ justify-content: center;
 align-items: center;
 
 .auth {
+    padding: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items:center;
-    width: 40%;
+    width: auto;
     height: fit-content;
-    padding: 120px;
-    align-items: left;
     background-color: white;
     border-radius: 10px;
     box-shadow: 1px 1px 10px rgba(80, 80, 230, 0.288);
