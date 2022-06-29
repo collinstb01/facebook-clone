@@ -29,17 +29,16 @@ function Modall() {
     coverImg: "",
     name: userId?.result?.name,
   });
-  console.log(postInfo.name);
-
   const handleClose = () => {
     setShow(false);
     setPostinfo({ ...postInfo, creator: id });
-    dispatch(getuserinfo(id));
     if (userinfo?.data?.userInfor) {
-      console.log("updating");
-      return dispatch(updateuserinfo(postInfo));
     }
-    dispatch(createuserinfo(postInfo));
+    console.log("updating");
+
+ dispatch(updateuserinfo(postInfo));
+ dispatch(getuserinfo(id));
+    // dispatch(createuserinfo(postInfo));
   };
 
   const style = {
@@ -75,7 +74,7 @@ function Modall() {
                   type="file"
                   multiple={false}
                   onDone={({ base64 }) =>
-                  setPostinfo({ ...setPostinfo, profileImg: base64 })
+                  setPostinfo({ ...postInfo, profileImg: base64 })
                   }
                 />
                 {<p>{postInfo?.profileImg}</p>}
@@ -99,7 +98,7 @@ function Modall() {
                   type="file"
                   multiple={false}
                   onDone={({ base64 }) =>
-                  setPostinfo({ ...setPostinfo, coverImg: base64 })
+                  setPostinfo({ ...postInfo, coverImg: base64 })
                   }
                 />
                 {<p>{postInfo?.profileImg}</p>}

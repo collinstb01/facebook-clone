@@ -15,7 +15,7 @@ const Feed = ({
   selectedFile,
   creator,
   createdAt,
-  profileImgg,
+  profileImg,
   _id,
   likes,
   comments,
@@ -48,8 +48,8 @@ const Feed = ({
     <FeedContainer>
       <User>
         <UserProfileImg onClick={handle}>
-          {profileImgg ? (
-            <UserImage src={profileImgg} />
+          {profileImg ? (
+            <UserImage src={profileImg} />
           ) : (
             <div className="dummy">{text}</div>
           )}
@@ -72,7 +72,7 @@ const Feed = ({
           {likes?.includes(user?.result?._id) ? (
             <>
               <AiFillLike className="reaction-icon" onClick={like} />
-              <span>You and {likes?.length - 1} other</span>
+              <span>{(likes?.length == 1) ? "You" :` You and ${likes?.length - 1} other`}</span>
             </>
           ) : (
             <>

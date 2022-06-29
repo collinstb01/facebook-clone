@@ -27,7 +27,7 @@ const Imagesections = () => {
         }
         return false
     })
-    const unique1 = unique.filter((val) => val.creator !== user?.result?._id)
+    const unique1 = unique?.filter((val) => val.creator !== user?.result?._id)
     useEffect(() => {
         dispatch(getalluserinfo())
     }, [])
@@ -45,7 +45,7 @@ const Imagesections = () => {
 export default Imagesections
 
 const ImageSectionn = styled.div`
-height:auto;
+height:fit-content;
 width: 100%;
 flex-wrap: nowrap;
 display: flex;

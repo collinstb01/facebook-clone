@@ -7,7 +7,7 @@ const Feeds = () => {
   const { posts, message } = useSelector((state) => state.posts);
   const [messagee, setMessage] = useState("")
   const dispatch = useDispatch();
-
+  
   return (
     <FeedContainer>
       {posts?.postMessages?.map((feeds) => (

@@ -25,14 +25,14 @@ const Post = () => {
   useEffect(() => {
     dispatch(getuserinfo(id))
 
-  }, [])
+  }, [dispatch, id])
 
   const Posts = (e) => {
     e.preventDefault();
 
     setInput(false);
     dispatch(
-      createpost({ ...postData, name: user?.result?.name, creator: id, profileImgg:  userinfo?.data?.userInfor?.profileImg })
+      createpost({ ...postData, name: user?.result?.name, creator: id, profileImg:  userinfo?.data?.userInfor?.profileImg })
     );
 
     // dispatch(updatepost(currentId, { ...postData, name: user?.result?.name }));
@@ -43,7 +43,7 @@ const Post = () => {
       <NavvCtn1>
         <Avatar />
         <Input
-          placeholder="Whats on your mind, Dommy Name"
+          placeholder={`Whats on your mind, ${user?.result?.name?.split(" ")[0]}`}
           onClick={showButton}
           name="message"
           value={postData.message}

@@ -14,6 +14,7 @@ import { FaVideo } from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getUserpost } from "../../actions/posts";
+import NotificationModal from "../modal/NotificationModal";
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
@@ -61,7 +62,9 @@ const Navbar = () => {
         <Grid3>
           <img />
        <div>   <h1 onClick={handle}>{user?.result?.name}</h1>
-          <h1 className="logout" onClick={logout}>Log Out</h1></div>
+          <h1 className="logout" onClick={logout}>Log Out</h1>
+          <NotificationModal />  
+        </div>
           <GiDiceSixFacesFour className="icons" />
           <AiFillMessage className="icons" />
           <BsFillBellFill className="icons" />

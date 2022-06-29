@@ -46,3 +46,15 @@ export const updateuserinfo = (info) => async (dispatch) => {
         console.log(error)
     }
 }
+
+export const getfollowers = ({follower,followee,follower_name, userInfoid}) => async (dispatch) => {
+    const { data } = await api.followers({follower,followee,follower_name, userInfoid})
+
+    try {
+        dispatch({ type: "GET_FOLLOWERS",payload:  {data} })
+
+        console.log(data)
+    } catch (error) {
+        console.log(error)
+    }
+}

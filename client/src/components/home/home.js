@@ -27,7 +27,7 @@ const home = () => {
 
     useEffect(() => {
         dispatch(getposts());
-      }, [message]);
+      }, [dispatch, message]);
     
     const logOut = () => {
         dispatch({ type: "LOGOUT" })
@@ -51,7 +51,7 @@ const home = () => {
                     < TextImg Icon={AiFillClockCircle} text='Memories' />
                     < TextImg Icon={RiArrowDropDownLine} text='See more' />
                     <Link to="/auth">
-                        <h3 className="logout" onClick={logOut}>Log Out</h3>
+                        <h3 className="logout" onClick={logOut} style={{fontSize: "15px"}}>Log Out</h3>
                     </Link>
                 </Grid1>
                 <Grid2>

@@ -12,14 +12,15 @@ import Post from "../home/Grid2.js/post/Post";
 import UserDummy from "./UserDummy";
 import FileBase from "react-file-base64";
 import Modall from "../modal/modal";
-import { getuserinfo } from "../../actions/userinfo";
+import { getfollowers, getuserinfo } from "../../actions/userinfo";
 import img4 from "../../images/network.png";
 import img3 from "../../images/dummy.jpg";
+import Button from "react-bootstrap/esm/Button";
 
 export const UserProfile = () => {
   const dispatch = useDispatch();
-  const { userposts, message } = useSelector((state) => state.posts);
-  const { userinfo } = useSelector((state) => state.userinfo);
+  const { userposts } = useSelector((state) => state.posts);
+  const { userinfo , message} = useSelector((state) => state.userinfo);
 
   console.log(userinfo);
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -27,10 +28,21 @@ export const UserProfile = () => {
   console.log(userposts?.data?.PostbyUser);
 
   useEffect(() => {
-    dispatch(getUserpost(id));
     dispatch(getuserinfo(id));
-  }, [id, message]);
+    dispatch(getUserpost(id));
+  }, [dispatch, message]);
   const text = userinfo?.data?.userInfor?.name?.charAt(0);
+
+  const handleFollow = () => {
+    dispatch(
+      getfollowers({
+        follower: user?.result?._id,
+        followee: id,
+        userInfoid: userinfo?.data?.userInfor?._id,
+        follower_name: user?.result?.name,
+      })
+    );
+  };
 
   return (
     <Main>
@@ -60,10 +72,18 @@ export const UserProfile = () => {
           ? userinfo?.data?.userInfor?.bio
           : "Enter Your Bio"}
       </p>
+     {
+      user?.result?._id !== id &&  (
+        <div>
+          <Button onClick={handleFollow}>{userinfo?.data?.userInfor?.followeeId?.includes(user?.result?._id) ?"Unfollow": "Follow"}</Button> 
+        </div>
+      )
+     }
+     <span>{userinfo?.data?.userInfor?.followeeId.length} Followers</span> <span>{userinfo?.data?.userInfor?.followerId.length} Following </span>
       <Modall />
       <div className="informations">
         <div className="informations-by-user"></div>
-        <Post />
+        {id === user.result?._id && <Post />}
         {!userposts?.data?.PostbyUser?.length && (
           <div>
             <h3>No Post To View</h3>

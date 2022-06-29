@@ -43,7 +43,7 @@ export const likepost = ({id, userId, setMessage}) => async (dispatch) => {
 
         dispatch({ type: "likepost", payload: { data } })
 
-        setMessage(data?.message)
+        // setMessage(data?.message)
     } catch (error) {
         console.log(error)
     }

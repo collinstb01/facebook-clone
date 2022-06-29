@@ -15,7 +15,7 @@ export default textimg
 
 const Textimg = styled.div`
 height: 8vh;
-width: 200%;
+width: auto;
 
 
 display: flex;
