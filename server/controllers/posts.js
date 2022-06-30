@@ -2,10 +2,16 @@ import express from "express";
 import mongoose from "mongoose";
 
 import PostMessage from "../models/posts.js";
+import userInfo from "../models/userInformation.js";
 
 export const getposts = async (req, res) => {
   try {
-    const postMessages = await PostMessage.find();
+    // const postMessages = await PostMessage.aggregate(
+    //   [
+    //     {$sample: {size: 50}}
+    //   ]
+    // );
+    const postMessages = await PostMessage.find()
 
     return res.status(200).json({ postMessages });
   } catch (error) {
@@ -14,14 +20,14 @@ export const getposts = async (req, res) => {
 };
 
 export const createpost = async (req, res) => {
-  const { message, selectedFile, name, creator, profileImgg } = req.body;
+  const { message, selectedFile, name, creator, profileImg } = req.body;
 
   const newPostMessage = new PostMessage({
     message,
     selectedFile,
     name,
     creator,
-    profileImgg,
+    profileImg,
   });
 
   try {
@@ -45,26 +51,17 @@ export const getUserpost = async (req, res) => {
 };
 
 export const likepost = async (req, res) => {
-  const { id, userId } = req.params;
+  const { id, userId, creator, name } = req.params;
   console.log(id);
   console.log(userId);
   try {
-    // const updatedpost = await PostMessage.aggregate([
-    //   {
-    //     $addFields: {
-    //       profileImgg: String,
-    //       likes: { type: [String], default: [] },
-    //       comments: { type: [String], default: [] },
-    //     },
-    //   },
-    // ]);
 
     const user = await PostMessage.findOne(
       { _id: id, likes: userId },
     );
 
     if (user) {
-      const updatedpost2 = await PostMessage.findOneAndUpdate(
+      const updatedpost2 = await PostMessage.updateOne(
         { _id: id },
         {
           $pull: {
@@ -72,9 +69,19 @@ export const likepost = async (req, res) => {
           },
         }
       );
+      await userInfo.updateOne(
+        {creator: creator },
+        {
+          $push: {
+            notification: `${name} liked your post`
+          }
+        }
+      )
       console.log("de");
+    res.status(200).json({ message: "sucessfully reacted" });
+
     } else {
-      const updatedpost = await PostMessage.findOneAndUpdate(
+      const updatedpost = await PostMessage.updateOne(
         { _id: id },
         {
           $addToSet: {
@@ -82,9 +89,11 @@ export const likepost = async (req, res) => {
           },
         }
       );
-    }
 
     res.status(200).json({ message: "sucessfully reacted" });
+
+    }
+
   } catch (error) {
     console.log(error);
   }
@@ -95,7 +104,7 @@ export const comments = async (req, res) => {
   console.log(id);
   console.log(comment);
   try {
-    const updatedcomments = await PostMessage.findOneAndUpdate(
+    const updatedcomments = await PostMessage.updateOne(
       { _id: id },
       {
         $push: {

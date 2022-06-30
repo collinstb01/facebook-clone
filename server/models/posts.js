@@ -17,7 +17,7 @@ const postSchema = mongoose.Schema({
         type: Date,
         default: new Date(),
     },
-    profileImgg: {
+    profileImg: {
         type:String
     }
 })

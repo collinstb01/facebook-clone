@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import userInfo from "../models/userInformation.js";
 
 import User from "../models/user.js";
 
@@ -40,9 +41,13 @@ export const signup = async (req, res) => {
 
         const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
 
+        const updateInfo = new userInfo({
+            profileImg: "", bio: "", creator: result._id,coverImg: "",name: `${firstName} ${lastName}`
+        })
+        await updateInfo.save()
         const token = jwt.sign({ email: result.email, id: result._id }, secret, { expiresIn: "1h" });
 
-        res.status(201).json({ result, token });
+        res.status(201).json({ result, token,updateInfo });
     } catch (error) {
         console.log(error)
     }
