@@ -7,7 +7,7 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import {AiFillCamera} from "react-icons/ai"
 import FileBase from "react-file-base64";
-import { createpost, getposts } from "../../../../actions/posts";
+import { createpost, getposts, getUserpost } from "../../../../actions/posts";
 import { getuserinfo } from "../../../../actions/userinfo";
 
 const Post = () => {
@@ -34,7 +34,11 @@ const Post = () => {
     dispatch(
       createpost({ ...postData, name: user?.result?.name, creator: id, profileImg:  userinfo?.data?.userInfor?.profileImg })
     );
-
+    if (id) {
+      dispatch(getUserpost(id))
+     } else {
+      dispatch(getposts())
+      }
     // dispatch(updatepost(currentId, { ...postData, name: user?.result?.name }));
     // //   clear();
   };

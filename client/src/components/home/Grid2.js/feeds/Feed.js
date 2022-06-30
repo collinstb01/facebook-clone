@@ -1,13 +1,14 @@
 import react, { useEffect, useState } from "react";
 import Img2 from "../../../../images/2.jpg";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillLike } from "react-icons/ai";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineComment } from "react-icons/ai";
 import { AiOutlineShareAlt } from "react-icons/ai";
-import { likepost, commentforpost, getposts } from "../../../../actions/posts";
+import { likepost, commentforpost, getposts, getUserpost } from "../../../../actions/posts";
+import Spinnerr from "../../../Spinner";
 
 const Feed = ({
   name,
@@ -21,29 +22,44 @@ const Feed = ({
   comments,
   setMessage,
 }) => {
-  const { userinfo } = useSelector((state) => state.userinfo);
+  const ate =  new Date(createdAt)
+
+  const { userinfo, loading } = useSelector((state) => state.userinfo);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
   const [show, setShow] = useState(false);
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   const commentFunc = () => {
-    dispatch(commentforpost({ comment, name, id: _id, setMessage }));
+    dispatch(commentforpost({ comment, name: user?.result?.name, id: _id, setMessage }));
+
+    if (id) {
+      dispatch(getUserpost(id))
+     } else {
+      dispatch(getposts())
+     }
   };
 
   function handle() {
     navigate(`/userProfile/${creator}`);
   }
-  const user = JSON.parse(localStorage.getItem("profile"));
-
+  const {id} = useParams()
   const like = () => {
-    dispatch(likepost({ id: _id, userId: user?.result?._id, setMessage }));
+    dispatch(likepost({ id: _id, userId: user?.result?._id, setMessage,name , creator}));
+
+    dispatch(getUserpost(id))
+    dispatch(getposts())
   };
   const commenthandle = () => {
     setShow((e) => !e);
   };
 
   const text = name?.charAt(0);
+
+  if (loading) {
+   return <Spinnerr />
+  }
   return (
     <FeedContainer>
       <User>
@@ -54,9 +70,9 @@ const Feed = ({
             <div className="dummy">{text}</div>
           )}
         </UserProfileImg>
-        <UserNameAndTimePosted>
+        <UserNameAndTimePosted style={{width: "100%",display: "flex", justifyContent: "space-between", alignItems: "center"}}>
           <h3 onClick={handle}>{name}</h3>
-          <span>{createdAt}</span>
+          <span>{ate.toDateString()}</span>
         </UserNameAndTimePosted>
       </User>
       <UserInput>

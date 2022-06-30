@@ -16,11 +16,12 @@ import { getfollowers, getuserinfo } from "../../actions/userinfo";
 import img4 from "../../images/network.png";
 import img3 from "../../images/dummy.jpg";
 import Button from "react-bootstrap/esm/Button";
+import Spinnerr from "../Spinner";
 
 export const UserProfile = () => {
   const dispatch = useDispatch();
   const { userposts } = useSelector((state) => state.posts);
-  const { userinfo , message} = useSelector((state) => state.userinfo);
+  const { userinfo, message, loading } = useSelector((state) => state.userinfo);
 
   console.log(userinfo);
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -42,7 +43,16 @@ export const UserProfile = () => {
         follower_name: user?.result?.name,
       })
     );
+    dispatch(getuserinfo(id));
   };
+  if (!userinfo?.data?.userInfor) {
+    return (
+    <div>
+       <Navbar />
+       <Spinnerr />
+    </div>
+    )
+  }
 
   return (
     <Main>
@@ -72,14 +82,23 @@ export const UserProfile = () => {
           ? userinfo?.data?.userInfor?.bio
           : "Enter Your Bio"}
       </p>
-     {
-      user?.result?._id !== id &&  (
+      {user?.result?._id !== id && (
         <div>
-          <Button onClick={handleFollow}>{userinfo?.data?.userInfor?.followeeId?.includes(user?.result?._id) ?"Unfollow": "Follow"}</Button> 
+          <Button onClick={handleFollow} style={{marginBottom: "5px"}}>
+            {userinfo?.data?.userInfor?.followeeId?.includes(user?.result?._id)
+              ? "Unfollow"
+              : "Follow"}
+          </Button>
         </div>
-      )
-     }
-     <span>{userinfo?.data?.userInfor?.followeeId.length} Followers</span> <span>{userinfo?.data?.userInfor?.followerId.length} Following </span>
+      )}
+      <div className="follow">
+        <span style={{ padding: "0px 5px" }}>
+          {userinfo?.data?.userInfor?.followeeId.length} Followers
+        </span>{" "}
+        <span style={{ padding: "0px 5px" }}>
+          {userinfo?.data?.userInfor?.followerId.length} Following{" "}
+        </span>
+      </div>
       <Modall />
       <div className="informations">
         <div className="informations-by-user"></div>
@@ -114,7 +133,18 @@ const Main = styled.div`
       width: 100%;
     }
   }
+  .follow {
+
+    span {
+      border: solid 2.5px;
+      border-image-source: linear-gradient(to bottom right,rgb(13 110 253 / 25%),#f8f9fa);
+      border-image-slice: 4;
+    }
+    margin-bottom: 10px;
+  }
   .images {
+    display: flex;
+    justify-content: center;
     width: 100%;
     height: 200px;
     overflow: hidden;
@@ -133,7 +163,7 @@ const Main = styled.div`
     }
     .cover-photo {
       position: relative;
-
+      width: 500px;
       img {
         width: 100%;
         height: auto;

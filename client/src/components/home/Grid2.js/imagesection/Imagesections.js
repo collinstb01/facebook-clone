@@ -9,6 +9,7 @@ import Img5 from '../../../../images/5.jpg'
 import Img6 from '../../../../images/6.jpg'
 import { useDispatch, useSelector } from 'react-redux'
 import { getalluserinfo } from '../../../../actions/userinfo'
+import Spinnerr from '../../../Spinner'
 
 const Imagesections = () => {
     const {alluserinfo} = useSelector((state) => state.userinfo)
@@ -31,6 +32,10 @@ const Imagesections = () => {
     useEffect(() => {
         dispatch(getalluserinfo())
     }, [])
+
+    if (!unique1)   {
+        return <Spinnerr />
+    }
     return (
         <ImageSectionn>
           {

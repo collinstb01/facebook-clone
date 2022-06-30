@@ -36,10 +36,10 @@ export const getUserpost = (id) => async (dispatch) => {
     }
 }
 
-export const likepost = ({id, userId, setMessage}) => async (dispatch) => {
+export const likepost = ({id, userId, setMessage, creator,name}) => async (dispatch) => {
 
     try {
-        const { data } = await api.likepost({id, userId})
+        const { data } = await api.likepost({id, userId, creator,name})
 
         dispatch({ type: "likepost", payload: { data } })
 

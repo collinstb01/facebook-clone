@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { AiFillCamera } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import {AiFillNotification} from "react-icons/ai"
+import img from "../../images/network.png"
 
 import {
   getuserinfo,
@@ -32,18 +33,27 @@ function NotificationModal() {
   const style = {
     zIndex: 10000000,
   };
+
   return (
     <>
       { userId.result?._id && (
-        <Button variant="primary" onClick={handleShow}>
+        <Button variant="primary" onClick={handleShow} size="sm">
          < AiFillNotification />
+         <span>view notifications</span>
         </Button>
       )}
       <Modal show={show} onHide={handleClose} style={style}>
         <Modal.Header closeButton>
-          <Modal.Title>Make Your Changes</Modal.Title>
+          <Modal.Title>Your Notification</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {
+            !userinfo?.data?.userInfor?.notification.length  && 
+          <div>
+          <h6>No Notifications</h6>
+          <img src={img} style={{width: "200px"}} />
+          </div>
+          }
             {
                 userinfo?.data?.userInfor?.notification.map((val) => (
                    <ul>
@@ -55,9 +65,6 @@ function NotificationModal() {
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>

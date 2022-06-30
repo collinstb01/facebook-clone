@@ -7,10 +7,6 @@ import { BsFlag } from "react-icons/bs";
 import { AiOutlinePlayCircle } from "react-icons/ai";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoIosPeople } from "react-icons/io";
-import { GiDiceSixFacesFour } from "react-icons/gi";
-import { AiFillMessage } from "react-icons/ai";
-import { BsFillBellFill } from "react-icons/bs";
-import { FaVideo } from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getUserpost } from "../../actions/posts";
@@ -61,14 +57,13 @@ const Navbar = () => {
         </Grid2>
         <Grid3>
           <img />
-       <div>   <h1 onClick={handle}>{user?.result?.name}</h1>
-          <h1 className="logout" onClick={logout}>Log Out</h1>
+       <div> 
+        <div style={{display: "flex"}}>
+        <h1 style={{marginRight: "10px"}} onClick={handle}>{user?.result?.name}</h1>
+          <h1 style={{color: "blue"}} className="logout" onClick={logout}>Log Out</h1>
+        </div>
           <NotificationModal />  
         </div>
-          <GiDiceSixFacesFour className="icons" />
-          <AiFillMessage className="icons" />
-          <BsFillBellFill className="icons" />
-          <FaVideo className="icons" />
         </Grid3>
       </NavbarGrid>
     </Navbarr>
