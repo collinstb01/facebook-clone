@@ -22,7 +22,7 @@ export const getposts = async (req, res) => {
 export const createpost = async (req, res) => {
   const { message, selectedFile, name, creator, profileImg } = req.body;
 
-  const newPostMessage = new PostMessage({
+  const postMessages = new PostMessage({
     message,
     selectedFile,
     name,
@@ -31,9 +31,9 @@ export const createpost = async (req, res) => {
   });
 
   try {
-    await newPostMessage.save();
+    await postMessages.save();
 
-    res.status(201).json(newPostMessage);
+    res.status(201).json({postMessages});
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -49,6 +49,29 @@ export const getUserpost = async (req, res) => {
     console.log(error);
   }
 };
+
+export const updatepost = async (req, res) => {
+      const {postid} = req.params
+      const {title} = req.body
+      console.log(title, postid)
+
+      try {
+        const updatesuccess = await PostMessage.updateOne(
+          {_id: postid},
+          {
+            $set: {
+              message: title
+            }
+          }
+        )
+        console.log("dd")
+        const postMessages = await PostMessage.find()
+
+        res.status(200).json({message: "successfully updated", postMessages})
+      } catch (error) {
+        console.log(error)
+      }
+}
 
 export const likepost = async (req, res) => {
   const { id, userId, creator, name } = req.params;
@@ -77,8 +100,10 @@ export const likepost = async (req, res) => {
           }
         }
       )
+      
       console.log("de");
-    res.status(200).json({ message: "sucessfully reacted" });
+      const postMessages = await PostMessage.find()
+    res.status(200).json({ message: "sucessfully reacted",postMessages });
 
     } else {
       const updatedpost = await PostMessage.updateOne(
@@ -90,7 +115,8 @@ export const likepost = async (req, res) => {
         }
       );
 
-    res.status(200).json({ message: "sucessfully reacted" });
+      const postMessages = await PostMessage.find()
+      res.status(200).json({ message: "sucessfully reacted",postMessages });
 
     }
 
@@ -112,9 +138,22 @@ export const comments = async (req, res) => {
         },
       }
     );
-
-    res.status(200).json({ updatedcomments, message: "sucessfully commented" });
+      const postMessages = await PostMessage.find()
+    res.status(200).json({ updatedcomments, message: "sucessfully commented",postMessages });
   } catch (error) {
     console.log(error);
   }
 };
+
+export const deletepost = async () => {
+      const {_id} = req.params
+  try {
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).json({message: "cant find post"})
+    
+    const updateddpost = await PostMessage.deleteOne({_id: _id})
+
+    return res.status(200).json({message: "Deleted successfully"})
+  } catch (error) {
+    console.log(error)
+  }
+}

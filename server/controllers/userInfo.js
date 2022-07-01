@@ -92,7 +92,7 @@ export const followers = async (req, res) => {
   // followee finding the all post of that userb which is the followee
   const userbpost = await post.findOne({ creator: followee });
   const userafollowing = await userInfo.findOne({creator: followee});
-  console.log(userafollowing)
+  console.log(follower, "h")
   try {
     if (userafollowing?.followeeId?.includes(follower)) {
      const updated3 = await userInfo.updateOne(
