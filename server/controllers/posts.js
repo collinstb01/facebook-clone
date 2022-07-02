@@ -6,12 +6,16 @@ import userInfo from "../models/userInformation.js";
 
 export const getposts = async (req, res) => {
   try {
+    const {page} = req.query
+    console.log(page)
+    const LIMIT = 7
+    const SKIP = (Number(page) - 1) * LIMIT
     // const postMessages = await PostMessage.aggregate(
     //   [
     //     {$sample: {size: 50}}
     //   ]
     // );
-    const postMessages = await PostMessage.find()
+    const postMessages = await PostMessage.find().sort({_id: -1}).limit(LIMIT).skip(SKIP)
 
     return res.status(200).json({ postMessages });
   } catch (error) {
@@ -65,9 +69,7 @@ export const updatepost = async (req, res) => {
           }
         )
         console.log("dd")
-        const postMessages = await PostMessage.find()
-
-        res.status(200).json({message: "successfully updated", postMessages})
+        res.status(200).json({message: "successfully updated"})
       } catch (error) {
         console.log(error)
       }
@@ -102,8 +104,7 @@ export const likepost = async (req, res) => {
       )
       
       console.log("de");
-      const postMessages = await PostMessage.find()
-    res.status(200).json({ message: "sucessfully reacted",postMessages });
+    res.status(200).json({ message: "sucessfully reacted" });
 
     } else {
       const updatedpost = await PostMessage.updateOne(
@@ -115,8 +116,7 @@ export const likepost = async (req, res) => {
         }
       );
 
-      const postMessages = await PostMessage.find()
-      res.status(200).json({ message: "sucessfully reacted",postMessages });
+      res.status(200).json({ message: "sucessfully reacted"});
 
     }
 
@@ -138,15 +138,15 @@ export const comments = async (req, res) => {
         },
       }
     );
-      const postMessages = await PostMessage.find()
-    res.status(200).json({ updatedcomments, message: "sucessfully commented",postMessages });
+    res.status(200).json({ updatedcomments, message: "sucessfully commented" });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const deletepost = async () => {
+export const deletepost = async (req, res) => {
       const {_id} = req.params
+      console.log(_id)
   try {
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).json({message: "cant find post"})
     
