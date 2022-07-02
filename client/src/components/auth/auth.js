@@ -71,7 +71,7 @@ export default auth
 
 const AuthContainer = styled.div`
 width: auto;
-height: 100vh;
+height: fit-content;
 
 display: flex;
 justify-content: center;

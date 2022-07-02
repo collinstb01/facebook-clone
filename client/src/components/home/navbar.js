@@ -28,7 +28,6 @@ const Navbar = () => {
       navigate("/auth")
       setUser(null)
   }
-  console.log(user);
   return (
     <Navbarr>
       <NavbarGrid>

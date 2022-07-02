@@ -18,16 +18,13 @@ function NotificationModal() {
   const { userinfo } = useSelector((state) => state.userinfo);
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
-  console.log(userinfo)
 
   const handleShow = () => setShow(true);
   const userId = JSON.parse(localStorage.getItem("profile"));
-    const id =  userId.result?._id
+    const id =  userId?.result?._id
   const handleClose = () => {
     setShow(false)
-
      dispatch(getuserinfo(id));
-
   };
 
   const style = {
@@ -36,7 +33,7 @@ function NotificationModal() {
 
   return (
     <>
-      { userId.result?._id && (
+      { userId?.result?._id && (
         <Button variant="primary" onClick={handleShow} size="sm">
          < AiFillNotification />
          <span>view notifications</span>

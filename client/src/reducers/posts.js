@@ -10,6 +10,10 @@ export default (state = { posts: [], userposts: [], message: [],loading: true },
       return { ...state, message: action.payload,loading: false };
     case "createcomment":
       return { ...state, message: action.payload,loading: false };
+      case "updatepost":
+        return { ...state, message: action.payload,loading: false };
+        case "deletepost":
+          return { ...state, message: action.payload,loading: false };
     default:
       return state;
   }

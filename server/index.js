@@ -17,6 +17,10 @@ app.use("/user", userRouter);
 app.use("/posts", postRouter);
 app.use("/userInfo", userInfoRouter);
 
+app.use("/", (req, res) => {
+    res.send("App running")
+})
+
 const CONNECTION_URL = 'mongodb+srv://jayden:jayden38400@cluster0.tir2o.mongodb.net/mySecondDatabase?retryWrites=true&w=majority';
 const PORT = process.env.PORT || 5000;
 

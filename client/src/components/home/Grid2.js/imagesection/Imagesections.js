@@ -1,19 +1,12 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import ImageSection from './ImageSection'
-import Img1 from '../../../../images/1.jpg'
-import Img2 from '../../../../images/2.jpg'
-import Img3 from '../../../../images/3.jpg'
-import Img4 from '../../../../images/4.jpg'
-import Img5 from '../../../../images/5.jpg'
-import Img6 from '../../../../images/6.jpg'
 import { useDispatch, useSelector } from 'react-redux'
 import { getalluserinfo } from '../../../../actions/userinfo'
-import Spinnerr from '../../../Spinner'
+import HistoriesLoader from '../../../imageSkeleton'
 
 const Imagesections = () => {
     const {alluserinfo} = useSelector((state) => state.userinfo)
-    console.log(alluserinfo)
     const dispatch = useDispatch()
     const user = JSON.parse(localStorage.getItem("profile"))
     
@@ -31,10 +24,9 @@ const Imagesections = () => {
     const unique1 = unique?.filter((val) => val.creator !== user?.result?._id)
     useEffect(() => {
         dispatch(getalluserinfo())
-    }, [])
-
+      }, [dispatch]);
     if (!unique1)   {
-        return <Spinnerr />
+        return <HistoriesLoader />
     }
     return (
         <ImageSectionn>

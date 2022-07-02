@@ -22,10 +22,6 @@ const Post = () => {
   const showButton = () => {
     setInput((e) => !e);
   };
-  useEffect(() => {
-    dispatch(getuserinfo(id))
-
-  }, [dispatch, id])
 
   const Posts = (e) => {
     e.preventDefault();
@@ -34,11 +30,6 @@ const Post = () => {
     dispatch(
       createpost({ ...postData, name: user?.result?.name, creator: id, profileImg:  userinfo?.data?.userInfor?.profileImg })
     );
-    if (id) {
-      dispatch(getUserpost(id))
-     } else {
-      dispatch(getposts())
-      }
     // dispatch(updatepost(currentId, { ...postData, name: user?.result?.name }));
     // //   clear();
   };

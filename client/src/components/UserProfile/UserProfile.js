@@ -20,18 +20,18 @@ import Spinnerr from "../Spinner";
 
 export const UserProfile = () => {
   const dispatch = useDispatch();
-  const { userposts } = useSelector((state) => state.posts);
-  const { userinfo, message, loading } = useSelector((state) => state.userinfo);
-
-  console.log(userinfo);
+  const { userposts,message } = useSelector((state) => state.posts);
+  const { userinfo, userinfomessage } = useSelector((state) => state.userinfo);
+  console.log(userinfomessage)
   const user = JSON.parse(localStorage.getItem("profile"));
   const { id } = useParams();
-  console.log(userposts?.data?.PostbyUser);
 
   useEffect(() => {
-    dispatch(getuserinfo(id));
+    if (userinfomessage) {
+      dispatch(getuserinfo(id));
+    }
     dispatch(getUserpost(id));
-  }, [dispatch, message]);
+  }, [dispatch, message, userinfomessage]);
   const text = userinfo?.data?.userInfor?.name?.charAt(0);
 
   const handleFollow = () => {
@@ -43,9 +43,8 @@ export const UserProfile = () => {
         follower_name: user?.result?.name,
       })
     );
-    dispatch(getuserinfo(id));
   };
-  if (!userinfo?.data?.userInfor) {
+  if (!userinfo?.data) {
     return (
     <div>
        <Navbar />

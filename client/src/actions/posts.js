@@ -1,9 +1,9 @@
 
 import * as api from '../api/index.js';
 
-export const getposts = () => async (dispatch) => {
+export const getposts = (page) => async (dispatch) => {
     try {
-        const { data } = await api.getposts()
+        const { data } = await api.getposts(page)
 
         dispatch({ type: "getposts", payload: { data } })
     } catch (error) {
@@ -22,6 +22,17 @@ export const createpost = (post) => async (dispatch) => {
     }
 }
 
+export const updatepost = ({title, postid}) => async (dispatch) => {
+    try {
+        const { data } = await api.updatepost({title, postid})
+        console.log(title)
+        dispatch({ type: "updatepost", payload: {data} })
+        console.log(data)
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const getUserpost = (id) => async (dispatch) => {
 
     try {
@@ -43,7 +54,7 @@ export const likepost = ({id, userId, setMessage, creator,name}) => async (dispa
 
         dispatch({ type: "likepost", payload: { data } })
 
-        // setMessage(data?.message)
+        console.log(data)
     } catch (error) {
         console.log(error)
     }
@@ -56,6 +67,18 @@ export const commentforpost = ({comment, id, name}) => async (dispatch) => {
 
         dispatch({ type: "createcomment", payload: { data } })
 
+        console.log(data)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const deletepost = (_id) =>  async (dispatch) => {
+
+    try {
+        const {data} = await api.deletepost(_id)
+
+        dispatch({type: "deletepost", payload: {data}})
         console.log(data)
     } catch (error) {
         console.log(error)

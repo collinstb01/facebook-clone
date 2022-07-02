@@ -16,7 +16,8 @@ import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { getposts } from '../../actions/posts'
 import { useDispatch, useSelector } from 'react-redux'
-
+import { getalluserinfo, getuserinfo } from '../../actions/userinfo'
+h
 const home = () => {
     const navigate = useNavigate();
   const { posts, message } = useSelector((state) => state.posts);
@@ -24,10 +25,7 @@ const home = () => {
 
     const [currentId, setCurrentId] = useState(0);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getposts());
-      }, [dispatch, message]);
+    const id = user?.result?._id
     
     const logOut = () => {
         dispatch({ type: "LOGOUT" })

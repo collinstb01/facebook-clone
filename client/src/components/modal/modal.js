@@ -37,9 +37,7 @@ function Modall() {
     console.log("updating");
 
  dispatch(updateuserinfo(postInfo));
-    if (id) {
-      dispatch(getuserinfo(id));
-    }
+   
     // dispatch(createuserinfo(postInfo));
   };
 
