@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { signin, signup } from "../../actions/auth"
 
+const Auth = () => {
 const initial = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }
-const auth = () => {
     const [formData, setFormData] = useState(initial);
     const [isSignup, setIsSignup] = useState(false);
     const dispatch = useDispatch();
@@ -67,7 +67,7 @@ const auth = () => {
     )
 }
 
-export default auth
+export default Auth
 
 const AuthContainer = styled.div`
 width: auto;

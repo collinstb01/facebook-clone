@@ -17,8 +17,8 @@ import { useNavigate } from "react-router-dom"
 import { getposts } from '../../actions/posts'
 import { useDispatch, useSelector } from 'react-redux'
 import { getalluserinfo, getuserinfo } from '../../actions/userinfo'
-h
-const home = () => {
+
+const Home = () => {
     const navigate = useNavigate();
   const { posts, message } = useSelector((state) => state.posts);
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")))
@@ -65,7 +65,7 @@ const home = () => {
     )
 }
 
-export default home
+export default Home
 
 const Homee = styled.div`
 height: fit-content;

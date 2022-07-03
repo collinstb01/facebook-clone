@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Spinnerr from "../../../Spinner";
@@ -27,7 +27,7 @@ const Feeds = () => {
     window.scrollTo({top: 0, behavior: "smooth"})
     dispatch(getposts(page));
   }
-  const innerref = useRef()
+  // const innerref = useRef()
 
   // const onscroll = () => {
   //   if (innerref.current) {
