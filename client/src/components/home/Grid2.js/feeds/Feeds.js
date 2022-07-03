@@ -58,9 +58,9 @@ const Feeds = () => {
 
   return (
     <FeedContainer
-    onScroll={onscroll} 
-    ref={innerref}
-    // style={{height: "100vh", overflowY: "auto"}}
+    // onScroll={onscroll} 
+    // ref={innerref}
+    // // style={{height: "100vh", overflowY: "auto"}}
     >
       {posts?.postMessages?.map((feeds) => (
         <Feed key={feeds._id} {...feeds} setMessage={setMessage} />
