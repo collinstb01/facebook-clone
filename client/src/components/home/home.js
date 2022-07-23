@@ -30,7 +30,7 @@ const Home = () => {
     const logOut = () => {
         dispatch({ type: "LOGOUT" })
 
-        navigate("/auth")
+        navigate("/")
         setUser(null)
     }
     return (
@@ -48,7 +48,7 @@ const Home = () => {
                     < TextImg Icon={BsFillCalendar2EventFill} text='Event' />
                     < TextImg Icon={AiFillClockCircle} text='Memories' />
                     < TextImg Icon={RiArrowDropDownLine} text='See more' />
-                    <Link to="/auth">
+                    <Link to="/">
                         <h3 className="logout" onClick={logOut} style={{fontSize: "15px"}}>Log Out</h3>
                     </Link>
                 </Grid1>

@@ -25,7 +25,7 @@ const Navbar = () => {
   const logout = () => {
       dispatch({ type: "LOGOUT" })
 
-      navigate("/auth")
+      navigate("/")
       setUser(null)
   }
   return (
@@ -34,7 +34,7 @@ const Navbar = () => {
         <Grid1>
           <div className="Grid1Ctn">
             <div className="Grid1Icon">
-              <Link to="/">
+              <Link to="/home">
                 {" "}
                 <FaFacebook className="icons" />
               </Link>{" "}

@@ -2,14 +2,17 @@ import React, { useState } from 'react'
 import { FaFacebook } from 'react-icons/fa'
 import styled from 'styled-components'
 import Input from './Input'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { signin, signup } from "../../actions/auth"
+import Spinnerr from '../Spinner'
 
 const Auth = () => {
 const initial = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }
     const [formData, setFormData] = useState(initial);
+    const [showSpinner, setShowSpinner] = useState(false)
+    const {authData} = useSelector((state) => state.auth)
     const [isSignup, setIsSignup] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -26,6 +29,7 @@ const initial = { firstName: '', lastName: '', email: '', password: '', confirmP
     }
     const handleSubmit = (e) => {
         e.preventDefault();
+        setShowSpinner(true)
 
         console.log('clicked');
         if (!isSignup) {
@@ -62,6 +66,9 @@ const initial = { firstName: '', lastName: '', email: '', password: '', confirmP
                 <Button onClick={switchMode}>
                     {!isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up"}
                 </Button>
+                {
+                showSpinner && <Spinnerr /> 
+            }
             </div>
         </AuthContainer>
     )

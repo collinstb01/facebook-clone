@@ -1,54 +1,72 @@
 import React, { useEffect } from "react";
 import Navbar from "./components/home/navbar.js";
 import Home from "./components/home/home";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Auth from "./components/auth/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UserProfile from "./components/UserProfile/UserProfile";
 import styled from "styled-components";
 import Button from "react-bootstrap/esm/Button.js";
+import NotLogin from "./components/NotLogin.js";
 
 const App = () => {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
+  const {authData} = useSelector((state) => state.auth)
+  console.log(authData)
+
+  // if (!user) {
+  //   return (
+
+  //   )
+  // }
 
   return (
     <Router>
       <Main className="div">
-        <Routes>
-          <Route
-            path="/auth"
-            element={<div> <Auth /></div>}
-          />
-          <Route
-            path="/"
-            element={
-              <div>
-                {/* {!user?.result ? (
+        <div>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <div>
+                  {" "}
+                  <Auth />
+                </div>
+              }
+            />
+            {!user && (
+              <Route
+                path="/notsigned"
+                element={
                   <div className="NotSigned">
-                    <img src={img} style={{ width: "300px" }} />
-                    <h1>Please SignIn to View post</h1>
-                    <Link to="/auth">
-                      <Button>Go to Login Page</Button>
-                    </Link>
+                    <NotLogin />
                   </div>
-                ):  */}
-               <div>
-               <Navbar />
-                <Home />
-               </div>
-              </div>
-            }
-          />
-          <Route
-            path="/userProfile/:id"
-            element={
-              <div>
-                <UserProfile />
-              </div>
-            }
-          />
-        </Routes>
+                }
+              />
+            )}
+
+            <Route
+              path="/home"
+              element={
+                (authData?.token || user)?
+                <div>
+                  <Navbar />
+                  <Home />
+                </div>
+                : <Navigate to="/notsigned" />
+              }
+            />
+            <Route
+              path="/userProfile/:id"
+              element={
+                <div>
+                  <UserProfile />
+                </div>
+              }
+            />
+          </Routes>
+        </div>
       </Main>
     </Router>
   );

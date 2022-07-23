@@ -1,6 +1,6 @@
 
 
-const auth = (state = { authData: null }, action) => {
+const auth = (state = { authData: [] }, action) => {
     switch (action.type) {
         case "AUTH":
             localStorage.setItem('profile', JSON.stringify({ ...action?.data }));
