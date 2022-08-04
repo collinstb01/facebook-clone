@@ -1,0 +1,2 @@
+# facebook-clone
+This is a Facebook Clone having functionalities like the Like and Dislike functionality, viewing a user profile page, Follow and Unfollow functionality, Login and Logout Functionality, Full CRUD Functionality, able to comment, and also notification functionality... I Developed this Project using React Js, Redux Js, Nodejs, Express Js and Mongodb which helped me to advanced my Skills with the MERN STACK .
