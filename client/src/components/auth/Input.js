@@ -20,12 +20,13 @@ const InputContainer = styled.div`
 input {
     padding: 15px 20px;
     padding-right: 100px;
+    width: 100%;
     border: none;
     border-bottom: 1px solid lightblue;
     outline: none;
     margin-top: 20px;
     text-align: left;
-    box-shadow: 1px 1px 3px black;
+    box-shadow: 1px 1px 3px #0000003d;
 }
 input:focus {
     border: none;

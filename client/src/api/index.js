@@ -1,6 +1,7 @@
 import axios from "axios"
 
 const API = axios.create({ baseURL: 'https://facebookclonetechsavvy.herokuapp.com' })
+// const API = axios.create({ baseURL: 'http://localhost:5000'})
 
 export const getposts = (page) => API.get(`/posts?page=${page}`);
 export const createpost = (newPost) => API.post('/posts', newPost);
@@ -16,5 +17,6 @@ export const signup = (formData) => API.post('/user/signup', formData);
 export const createuserinfo = (info) => API.post("/userInfo/createuserinfo", info)
 export const getuserinfo = (id) => API.get(`/userInfo/getuserinfo/${id}`, id)
 export const updateuserinfo = (info) => API.patch(`/userInfo/updateuserinfo`, info)
-export const getalluserinfo = () => API.get(`/userInfo/getalluserinfo`)
+export const getalluserinfo = (page) => API.get(`/userInfo/getalluserinfo?page=${page}`, page)
+export const getusernotifications = (id) => API.get(`/userInfo/getusernotifications/${id}`, id)
 export const followers = (data) => API.put(`/userInfo/followers`, data)

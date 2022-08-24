@@ -22,7 +22,7 @@ export const UserProfile = () => {
   const dispatch = useDispatch();
   const { userposts,message } = useSelector((state) => state.posts);
   const { userinfo, userinfomessage } = useSelector((state) => state.userinfo);
-  console.log(userinfomessage)
+  console.log(userinfomessage, userinfo)
   const user = JSON.parse(localStorage.getItem("profile"));
   const { id } = useParams();
 
@@ -31,7 +31,7 @@ export const UserProfile = () => {
       dispatch(getuserinfo(id));
     }
     dispatch(getUserpost(id));
-  }, [dispatch, message, userinfomessage]);
+  }, [dispatch, message, userinfomessage, id]);
   const text = userinfo?.data?.userInfor?.name?.charAt(0);
 
   const handleFollow = () => {
@@ -44,19 +44,27 @@ export const UserProfile = () => {
       })
     );
   };
-  if (!userinfo?.data) {
-    return (
-    <div>
-       <Navbar />
-       <Spinnerr />
-    </div>
-    )
-  }
+    if (!userinfo?.data && userinfo?.data?.userInfor?.creator !== id) {
+      return (
+      <div>
+         <Navbar />
+         <Spinnerr />
+      </div>
+      )
+    }
 
   return (
     <Main>
       <Navbar />
-      <div className="images">
+      {
+        (userinfo?.data?.userInfor?.creator !== id) ? 
+          <div>
+          {/* <Navbar /> */}
+          <Spinnerr />
+       </div>
+        : 
+        <>
+          <div className="images">
         <div className="cover-photo">
           {userinfo?.data?.userInfor?.coverImg ? (
             <img src={userinfo?.data?.userInfor?.coverImg} />
@@ -112,6 +120,9 @@ export const UserProfile = () => {
           <Feed {...userpost} />
         ))}
       </div>
+        </>
+      }
+    
     </Main>
   );
 };

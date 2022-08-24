@@ -105,10 +105,10 @@ const Feed = ({
               <span>{(likes?.length == 1) ? "You" :` You and ${likes?.length - 1} other`}</span>
             </>
           ) : (
-            <>
-              <AiOutlineLike className="reaction-icon" onClick={like} />
+            <div onClick={like} classNem="div">
+              <AiOutlineLike className="reaction-icon"/>
               <span>{likes?.length} likes</span>
-            </>
+            </div>
           )}
         </div>
         <div className="likes">
@@ -150,6 +150,10 @@ const FeedContainer = styled.div`
   border-radius: 20px;
   margin-bottom: 20px;
   padding-top: 13px;
+  .div:target {
+    /* transform: scale(4); */
+    /* background-color: blue; */
+}
   .dummy {
     width: 40px;
     height: 40px;

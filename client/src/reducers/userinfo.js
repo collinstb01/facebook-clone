@@ -1,5 +1,5 @@
 export default (
-  state = { alluserinfo: [], userinfo: [], userinfomessage: [],loading: true },
+  state = { alluserinfo: [], userinfo: [], userinfomessage: [],usernotifications: [], loading: true },
   action
 ) => {
   switch (action.type) {
@@ -9,8 +9,10 @@ export default (
       return { ...state, userinfo: action.payload, loading: false };
     case "GET_ALL_INFO":
       return { ...state, alluserinfo: action.payload,loading: false };
-    case "GET_FOLLOWERS":
+      case "GET_FOLLOWERS":
       return { ...state, userinfomessage: action.payload,loading: false };
+      case "GET_NOTIFICATIOS":
+      return { ...state, usernotifications: action.payload,loading: false };
     default:
       return state;
   }

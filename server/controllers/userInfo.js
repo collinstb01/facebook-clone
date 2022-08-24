@@ -41,7 +41,11 @@ export const getuserinfo = async (req, res) => {
 };
 export const getalluserinfo = async (req, res) => {
   try {
-    const userInfor = await userInfo.find();
+    const {page} = req.query
+    console.log(page)
+    const LIMIT = 7
+    const SKIP = (Number(page) - 1) * LIMIT
+    const userInfor = await userInfo.find().sort({_id: -1}).limit(LIMIT).skip(SKIP);
 
     try {
       return res
@@ -152,3 +156,14 @@ export const followers = async (req, res) => {
     console.log(error);
   }
 };
+
+export const getusernotifications = async (req, res) => {
+    const {id} = req.params
+  try {
+    const usernotifications = await userInfo.findOne({creator: id})
+
+    return res.status(200).json({usernotifications, message: "successful"})
+  } catch (error) {
+    console.log(error)
+  }
+}

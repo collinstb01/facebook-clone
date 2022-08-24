@@ -1,10 +1,11 @@
 import * as api from '../api'
 
-export const signup = (formData, navigate) => async (dispatch) => {
-    const { data } = await api.signup(formData)
+export const signup = (formData, navigate, setMessage, setShowSpinner) => async (dispatch) => {
 
     try {
+        const { data } = await api.signup(formData)
         console.log(data)
+
         dispatch({ type: "AUTH", data })
         const user = localStorage.getItem("profile")
         if (user) {
@@ -12,12 +13,17 @@ export const signup = (formData, navigate) => async (dispatch) => {
         }
     } catch (error) {
         console.log(error)
+        if (error) {
+            setMessage("Password Must Be More than 8 Characters/Invalid Email")
+            setShowSpinner(false)
+        }
     }
 }
-export const signin = (formData, navigate) => async (dispatch) => {
-    const { data } = await api.signin(formData)
+export const signin = (formData, navigate, setMessage, setShowSpinner) => async (dispatch) => {
 
     try {
+        const { data } = await api.signin(formData)
+
         dispatch({ type: "AUTH", data })
 
         const user = localStorage.getItem("profile")
@@ -27,5 +33,9 @@ export const signin = (formData, navigate) => async (dispatch) => {
 
     } catch (error) {
         console.log(error)
+        if (error) {
+            setMessage("Password Not Correct/Username doesn't exist")
+            setShowSpinner(false)
+        }
     }
 }
