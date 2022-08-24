@@ -46,71 +46,72 @@ const Auth = () => {
   };
   return (
     <AuthContainer>
-    <div className="ctn">
-      <div className="left">
-        <img src={facebookLogo} className="logo" />
-        <h4>
-          Facebook helps you connect and Share love with the people in your life
-        </h4>
-      </div>
-      <div className="auth">
-        <div className="auth2">
-          <form className="form">
-            {!isSignup && (
-              <>
-                <Input
-                  placeholder="First Name"
-                  name="firstName"
-                  type="text"
-                  handleChange={handleChange}
-                  className="i1"
-                />
-                <Input
-                  placeholder="Last Name"
-                  name="lastName"
-                  type="text"
-                  handleChange={handleChange}
-                  className="i2"
-                />
-              </>
-            )}
-            <Input
-              placeholder="Email Address"
-              name="email"
-              type="email"
-              handleChange={handleChange}
-            />
-            <Input
-              placeholder="Password"
-              name="password"
-              type="password"
-              handleChange={handleChange}
-            />
-            {!isSignup && (
-              <>
-                <Input
-                  placeholder="Confirm Password"
-                  type="password"
-                  name="confirmPassword"
-                  handleChange={handleChange}
-                />
-              </>
-            )}
-          </form>
-        <Button onClick={handleSubmit} className="loginBtn">
-            {!isSignup ? "Sign Up" : "Sign In"}
-          </Button>
-          <div className="border"> </div>
-          <p style={{ textAlign: "center", color: "red" }}>{message}</p>
-          <Button onClick={switchMode} className="signIn">
-            {!isSignup
-              ? "Already have an account? Sign in"
-              : "Don't have an account? Sign Up"}
-          </Button>
-          {showSpinner && <Spinnerr />}
+      <div className="ctn">
+        <div className="left">
+          <img src={facebookLogo} className="logo" />
+          <h4>
+            Facebook helps you connect and Share love with the people in your
+            life
+          </h4>
+        </div>
+        <div className="auth">
+          <div className="auth2">
+            <form className="form">
+              {!isSignup && (
+                <>
+                  <Input
+                    placeholder="First Name"
+                    name="firstName"
+                    type="text"
+                    handleChange={handleChange}
+                    className="i1"
+                  />
+                  <Input
+                    placeholder="Last Name"
+                    name="lastName"
+                    type="text"
+                    handleChange={handleChange}
+                    className="i2"
+                  />
+                </>
+              )}
+              <Input
+                placeholder="Email Address"
+                name="email"
+                type="email"
+                handleChange={handleChange}
+              />
+              <Input
+                placeholder="Password"
+                name="password"
+                type="password"
+                handleChange={handleChange}
+              />
+              {!isSignup && (
+                <>
+                  <Input
+                    placeholder="Confirm Password"
+                    type="password"
+                    name="confirmPassword"
+                    handleChange={handleChange}
+                  />
+                </>
+              )}
+            </form>
+            <Button onClick={handleSubmit} className="loginBtn">
+              {!isSignup ? "Sign Up" : "Sign In"}
+            </Button>
+            <div className="border"> </div>
+            <p style={{ textAlign: "center", color: "red" }}>{message}</p>
+            <Button onClick={switchMode} className="signIn">
+              {!isSignup
+                ? "Already have an account? Sign in"
+                : "Don't have an account? Sign Up"}
+            </Button>
+            {showSpinner && <Spinnerr />}
+          </div>
         </div>
       </div>
-    </div>
     </AuthContainer>
   );
 };
@@ -123,77 +124,77 @@ const AuthContainer = styled.div`
 
   .ctn {
     width: auto;
-  height: fit-content;
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-content: center;
-  align-items: center;
-  background-color: #f0f2f5;
-  @media (max-height: 667px) {
-    /* height: fit-content; */
-    padding-bottom: 20px;
-  }
-  @media (max-width: 750px) {
-    grid-template-columns: 1fr;
-  }
-  h4 {
-    justify-content: center;
-    @media (max-width: 750px) {
-        font-size: 18px;
-  }
-  }
-  .left {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    h4 {
-        max-width: 80%;
-        margin-left: 36px;
-    }
-  }
-  .logo {
-    width: 330px;
-    
-    @media (max-width: 750px) {
-        width: 300px;   
-    }
-  }
-  .auth {
-    /* padding: 50px; */
-    display: flex;
-    flex-direction: column;
+    height: fit-content;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    /* height: 100vh; */
-
-    .auth2 {
-      padding: 15px;
-      border-radius: 10px;
-      width: fit-content;
-      box-shadow: 1px 1px 10px rgba(80, 80, 230, 0.288);
-      background-color: white;
+    background-color: #f0f2f5;
+    @media (max-height: 667px) {
+      /* height: fit-content; */
+      padding-bottom: 20px;
+    }
+    @media (max-width: 750px) {
+      grid-template-columns: 1fr;
+    }
+    h4 {
+      justify-content: center;
+      @media (max-width: 750px) {
+        font-size: 18px;
+      }
+    }
+    .left {
+      width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      justify-content: center;
+      align-items: flex-start;
+      h4 {
+        max-width: 80%;
+        margin-left: 36px;
+      }
+    }
+    .logo {
+      width: 330px;
 
       @media (max-width: 750px) {
-        width: 90%;
+        width: 300px;
       }
     }
-    .form {
+    .auth {
+      /* padding: 50px; */
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      /* height: 100vh; */
 
-      .i1,
-      i2 {
-        width: 50%;
+      .auth2 {
+        padding: 15px;
+        border-radius: 10px;
+        width: fit-content;
+        box-shadow: 1px 1px 10px rgba(80, 80, 230, 0.288);
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @media (max-width: 750px) {
+          width: 90%;
+        }
+      }
+      .form {
+        display: flex;
+        flex-direction: column;
+
+        .i1,
+        i2 {
+          width: 50%;
+        }
       }
     }
-  }
   }
   .loginBtn {
     width: 100%;
